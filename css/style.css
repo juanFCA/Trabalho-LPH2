@@ -1,0 +1,53 @@
+body {
+	background: teal;
+	background: url('../img/fundo.png');
+	margin: 0;
+	padding: 0;
+}
+
+#telajogo {
+	text-align: center;
+	padding: 5px;
+	width: 684px;
+	height: 346px;
+}
+#corpojogo {
+	margin: 0 auto;
+	margin-top: 10px;
+	padding: 5px;
+	width: 664px;
+	height: 640px;
+}
+#cabeçalho {
+    padding: 5px;
+	width: 674px;
+}
+#titulo {
+   font: 40px fantasy;
+   text-align: center;
+   color: #FFD700;
+   text-shadow: 2px 2px 4px black;
+}
+.painel {
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+}
+#pnivel {
+	float: right;
+  	font: 30px fantasy;
+ 	text-align: right;
+ 	color: #FFFF00;
+ 	width: 322px;
+	height: 36px;
+ 	text-shadow: 2px 2px 4px black;
+}
+#pvida {
+	float: left;
+  	width: 322px;
+  	height: 36px;
+}
+#tela {
+    position: relative;
+    border: 2px inset gray;
+}
