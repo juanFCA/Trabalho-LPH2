@@ -24,11 +24,18 @@ function desenha(){
 			inimigos[i].vy = 0;
 			soundLib.play("monstromorre");
 		}
-		if(pc.vida==0){
-			alert("Total de Moedas : "+pc.moedas);
-			return;
-		}
 	}
+
+	if(pc.vida==0){
+		alert("Fim do Jogo - Total de Moedas : "+pc.moedas);
+		return;
+	}
+
+	if(pc.moedas==FASES*24){
+		alert("Venceu o Jogo - Total de Moedas : "+pc.moedas);
+		return;
+	}
+
 	if(moeda.colidiuCom(pc)){
 		pc.moedas++;
 		soundLib.play("pegamoeda");
