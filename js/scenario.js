@@ -18,7 +18,7 @@ Map.prototype.setGrid = function(grid){
   this.grid = grid;
 }
 function Scenario(){
-  this.level = 1;
+  this.level = 0;
   this.maps = [ new Map()];
 }
 Scenario.prototype.setMap = function(level,map){
@@ -39,16 +39,12 @@ Scenario.prototype.getCols = function(){
 
 var SIZE = 4;
 var tutorial = [];
-for (var i=0; i<SIZE; i++) {  
+for (var i=0; i<=SIZE; i++) {  
   tutorial[i] = new Map();  
-  tutorial[i].maps = tutorial[i];
-  tutorial[i].level = i;
 }  
 
 var questTutorial = new Scenario();
-for (var i=0; i<SIZE; i++) {  
-  questTutorial.setMap(i, tutorial[i]);
-}
+questTutorial.setMap(questTutorial.level, tutorial[questTutorial.level]);
 
 // largura = SIZE(7)*NumCol(4)+NumCol+1(5)
 //  altura = SIZE(7)*NumLin(2)+NumLin+1(3)
