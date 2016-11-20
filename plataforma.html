@@ -26,7 +26,7 @@
 		
 
 		<script>
-			var zoom = 0.5;
+			var zoom = 2;
 			var NUM_ENEMIES= 5;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
@@ -35,6 +35,7 @@
 			var imgWall = new Image();
 			imgWall.src = 'img/wall.svg';
 			var imgBlock = new Image();
+			var quotes=new Array()
 			imgBlock.src = 'img/block.svg';
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
@@ -47,32 +48,18 @@
 			var g = 300;
 			var pc = new SpriteInMap();
 			pc.imune = 0;
+			pc.vida = 3;
+			pc.moedas = 0;
 			var machado = new Machado();
 			machado.x = 40;
 			machado.y = 40;
 			var moeda = new Moeda();
 			var inimigos = [];
-			for(var i=0; i<NUM_ENEMIES; i++){
-				inimigos[i] = new SpriteInMap();
-				inimigos[i].imgY = 1;
-				inimigos[i].x = 15*32-Math.random()*32+32*i;
-				inimigos[i].persegue = function(pc){
-					if(pc.x < this.x){
-						this.vx = -35;
-					}
-					else if (pc.x > this.x){
-						this.vx = +35;
-					}
-					else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-						this.vy -= 220;
-					}
-				};
-			}
-			
-			
+			inimigospersegue();
 			setInterval(desenha, 1000*dt);
-			desenha();
 			controle();
+			desenha();
+
 		</script>
 	</body>
 </html>

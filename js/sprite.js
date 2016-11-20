@@ -10,6 +10,7 @@ function SpriteInMap(){
   this.imgX = 0;
   this.imgY = 0;
   this.iddle = 0;
+  this.life = 0;
 }
 SpriteInMap.prototype.desenha = function(ctx){
     if(this.vx>=0){
