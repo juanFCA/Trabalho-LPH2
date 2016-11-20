@@ -41,14 +41,10 @@ var SIZE = 4;
 var tutorial = [];
 for (var i=0; i<=SIZE; i++) {  
   tutorial[i] = new Map();  
-  tutorial[i].maps = tutorial[i];
-  tutorial[i].level = i;
 }  
 
 var questTutorial = new Scenario();
-for (var i=0; i<=SIZE; i++) {  
-  questTutorial.setMap(i, tutorial[i]);
-}
+questTutorial.setMap(questTutorial.level, tutorial[questTutorial.level]);
 
 // largura = SIZE(7)*NumCol(4)+NumCol+1(5)
 //  altura = SIZE(7)*NumLin(2)+NumLin+1(3)
