@@ -34,7 +34,13 @@ function desenha(){
 		soundLib.play("pegamoeda");
 		moeda.x = 16+32*(1+Math.floor(Math.random()*18));
 		moeda.y = 64;
+
+		if(pc.moedas==1){
+			alert("Total de Moedas : "+pc.moedas);
+		}
 	}
+
+
 
 	pc.move(dt);
 	moeda.move(dt);
