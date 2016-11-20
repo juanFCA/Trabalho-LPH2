@@ -61,7 +61,7 @@ function desenha(){
 		inimigos[i].persegue(pc);
 	}
 	desenhaMapa();
-	ctx.fillText(x++,50,20);
+	//ctx.fillText(x++,50,20);
 	machado.desenha(ctx);
 	moeda.desenha(ctx);
 	if(pc.imune>0){
@@ -83,9 +83,9 @@ function desenhaMapa(){
 	for (var l = 0; l < linhas; l++) {
 		for (var c = 0; c < colunas; c++) {
 			if(questTutorial.getCell(l,c)==0){
-				ctx.drawImage(imgWall,c*32,l*32);
+				ctx.drawImage(imgWall[questTutorial.level],c*32,l*32);
 			} else {
-				ctx.drawImage(imgBlock,c*32,l*32);
+				ctx.drawImage(imgBlock[questTutorial.level],c*32,l*32);
 			}
 		}
 	}
