@@ -10,6 +10,7 @@
 	    <script src="js/sound.js" charset="utf-8"></script>
 	    <script src="js/desenha.js" charset="utf-8"></script>
 	    <script src="js/controle.js" charset="utf-8"></script>
+	    <script src="js/boss.js" charset="utf-8"></script>
 	    <link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
@@ -28,14 +29,34 @@
 		<script>
 			var zoom = 0.5;
 			var NUM_ENEMIES= 5;
+			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
+			var FASES = 5;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
 			imgPc.src = 'img/pc.svg';
-			var imgWall = new Image();
-			imgWall.src = 'img/wall.svg';
-			var imgBlock = new Image();
-			imgBlock.src = 'img/block.svg';
+			var imgWall = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgWall[i] = new Image();
+			}
+			imgWall[0].src = 'img/fase floresta bloco de terra.svg';
+			imgWall[1].src = 'img/fase neve bloco de gelo.svg';
+			imgWall[2].src = 'img/wall.svg';
+			imgWall[3].src = 'img/fase eletrica chao.svg';
+			imgWall[4].src = 'img/fase caverna bloco de pedra.svg';
+			var imgBlock = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgBlock[i] = new Image();
+			}
+			imgBlock[0].src = 'img/fase floresta fundo.svg';
+			imgBlock[1].src = 'img/fase neve fundo.svg';
+			imgBlock[2].src = 'img/block.svg';
+			imgBlock[3].src = 'img/fase eletrica fundo.svg';
+			imgBlock[4].src = 'img/fase caverna fundo.svg';
+			var imgOver = new Image();
+			imgOver.src = 'img/Game Over.svg'
+			var imgWin = new Image();
+			imgWin.src = 'img/Winner.svg'
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");
@@ -47,32 +68,19 @@
 			var g = 300;
 			var pc = new SpriteInMap();
 			pc.imune = 0;
+			pc.vida = 3;
+			pc.moedas = 0;
 			var machado = new Machado();
 			machado.x = 40;
 			machado.y = 40;
 			var moeda = new Moeda();
 			var inimigos = [];
-			for(var i=0; i<NUM_ENEMIES; i++){
-				inimigos[i] = new SpriteInMap();
-				inimigos[i].imgY = 1;
-				inimigos[i].x = 15*32-Math.random()*32+32*i;
-				inimigos[i].persegue = function(pc){
-					if(pc.x < this.x){
-						this.vx = -35;
-					}
-					else if (pc.x > this.x){
-						this.vx = +35;
-					}
-					else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-						this.vy -= 220;
-					}
-				};
-			}
-			
-			
+			var inimigos1 = [];
+			inimigospersegue();
 			setInterval(desenha, 1000*dt);
-			desenha();
 			controle();
+			desenha();
+
 		</script>
 	</body>
 </html>
