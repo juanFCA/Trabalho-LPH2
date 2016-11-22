@@ -10,7 +10,7 @@
 	    <script src="js/sound.js" charset="utf-8"></script>
 	    <script src="js/desenha.js" charset="utf-8"></script>
 	    <script src="js/controle.js" charset="utf-8"></script>
-	    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+	    <link rel="stylesheet" href="css/style.css" /> 
 	</head>
 	<body>
 		<div id="corpojogo">
@@ -18,7 +18,7 @@
        			<div id="titulo">Trabalho de Hipermídia 2</div>
          	</div>
          	<div id="telajogo">
-            	<canvas id="tela" width="1440" height="544"></canvas>
+            	<canvas id="tela" width="680" height="320"></canvas>
         	</div>
         </div>
 
@@ -37,7 +37,7 @@
 			var imgWall = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgWall[i] = new Image();
-				imgWall[i].src = 'img/wall.png';
+				imgWall[i].src = 'img/wall.svg';
 			}
 			//imgWall[0].src = 'img/fase floresta bloco de terra.svg';
 			//imgWall[1].src = 'img/fase neve bloco de gelo.svg';
@@ -47,7 +47,7 @@
 			var imgBlock = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgBlock[i] = new Image();
-				imgBlock[i].src = 'img/block.png';
+				imgBlock[i].src = 'img/block.svg';
 			}
 			//imgBlock[0].src = 'img/fase floresta fundo.svg';
 			//imgBlock[1].src = 'img/fase neve fundo.svg';

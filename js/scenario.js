@@ -229,7 +229,6 @@ Scenario.prototype.getCols = function(){
 }
 
 var questTutorial = new Scenario();
-
 var SIZE = 4;
 var tutorial = [];
 for (var i=0; i<=SIZE; i++) {
