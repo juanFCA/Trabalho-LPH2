@@ -39,12 +39,9 @@ Scenario.prototype.getCols = function(){
 
 var SIZE = 4;
 var tutorial = [];
-for (var i=0; i<=SIZE; i++) {  
-  tutorial[i] = new Map();  
-}  
-
 var questTutorial = new Scenario();
-questTutorial.setMap(questTutorial.level, tutorial[questTutorial.level]);
 
-// largura = SIZE(7)*NumCol(4)+NumCol+1(5)
-//  altura = SIZE(7)*NumLin(2)+NumLin+1(3)
+for (var i=1; i<=SIZE; i++) {  
+  tutorial[i] = new Map(); 
+  questTutorial.setMap(i, tutorial[i]); 
+}  

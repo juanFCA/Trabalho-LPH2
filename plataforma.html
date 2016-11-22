@@ -16,8 +16,6 @@
 		<div id="corpojogo">
        		<div id="cabeçalho">
        			<div id="titulo">Trabalho de Hipermídia 2</div>
-       			<div class="painel" id="pvida"><canvas height="36" width="280" id="tvida"></div>
-            	<div class="painel" id="pnivel">Nível: <var type="number" id="pfase">1</var></div>
          	</div>
          	<div id="telajogo">
             	<canvas id="tela" width="680" height="320"></canvas>
@@ -26,9 +24,10 @@
 		
 
 		<script>
+			var Totalmoedas = document.getElementById("tmoeda");	
 			var zoom = 2;
 			var NUM_ENEMIES= 5;
-			var FASES = 5;
+			var FASES = 4;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
@@ -36,25 +35,29 @@
 			var imgWall = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgWall[i] = new Image();
+				imgWall[i].src = 'img/wall.svg';
 			}
-			imgWall[0].src = 'img/fase floresta bloco de terra.svg';
-			imgWall[1].src = 'img/fase neve bloco de gelo.svg';
-			imgWall[2].src = 'img/wall.svg';
-			imgWall[3].src = 'img/fase eletrica chao.svg';
-			imgWall[4].src = 'img/fase caverna bloco de pedra.svg';
+			//imgWall[0].src = 'img/fase floresta bloco de terra.svg';
+			//imgWall[1].src = 'img/fase neve bloco de gelo.svg';
+			//imgWall[2].src = 'img/wall.svg';
+			//imgWall[3].src = 'img/fase eletrica chao.svg';
+			//imgWall[4].src = 'img/fase caverna bloco de pedra.svg';
 			var imgBlock = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgBlock[i] = new Image();
+				imgBlock[i].src = 'img/block.svg';
 			}
-			imgBlock[0].src = 'img/fase floresta fundo.svg';
-			imgBlock[1].src = 'img/fase neve fundo.svg';
-			imgBlock[2].src = 'img/block.svg';
-			imgBlock[3].src = 'img/fase eletrica fundo.svg';
-			imgBlock[4].src = 'img/fase caverna fundo.svg';
+			//imgBlock[0].src = 'img/fase floresta fundo.svg';
+			//imgBlock[1].src = 'img/fase neve fundo.svg';
+			//imgBlock[2].src = 'img/block.svg';
+			//imgBlock[3].src = 'img/fase eletrica fundo.svg';
+			//imgBlock[4].src = 'img/fase caverna fundo.svg';
 			var imgOver = new Image();
 			imgOver.src = 'img/Game Over.svg'
 			var imgWin = new Image();
 			imgWin.src = 'img/Winner.svg'
+			var imgVida = new Image();
+			imgVida.src = 'img/heart.png'
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");

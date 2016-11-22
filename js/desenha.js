@@ -26,16 +26,6 @@ function desenha(){
 		}
 	}
 
-	if(pc.vida==0){
-		alert("Fim do Jogo - Total de Moedas : "+pc.moedas);
-		return;
-	}
-
-	if(pc.moedas==FASES*24){
-		alert("Venceu o Jogo - Total de Moedas : "+pc.moedas);
-		return;
-	}
-
 	if(moeda.colidiuCom(pc)){
 		pc.moedas++;
 		soundLib.play("pegamoeda");
@@ -61,7 +51,6 @@ function desenha(){
 		inimigos[i].persegue(pc);
 	}
 	desenhaMapa();
-	//ctx.fillText(x++,50,20);
 	machado.desenha(ctx);
 	moeda.desenha(ctx);
 	if(pc.imune>0){
@@ -75,6 +64,12 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
+	desenhaStatus();
+
+	if(pc.vida == 0 || pc.moedas == FASES*24){
+		statusJogo();
+	}
+	
 }
 
 function desenhaMapa(){
@@ -90,3 +85,24 @@ function desenhaMapa(){
 		}
 	}
 }
+
+function desenhaStatus(){
+	for(var i = 0; i < pc.vida; i++){
+		ctx.drawImage(imgVida, 10+15*i, 15, 32, 32);
+	}
+  	ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 560, 0, 52,52);
+  	ctx.font = "24px serif";
+	ctx.textBaseline = "hanging";
+	ctx.fillStyle = "#FFD700";
+  	ctx.fillText(" X "+pc.moedas,600,22);
+}
+
+function statusJogo(){
+	if (pc.vida == 0) {
+		ctx.drawImage(imgOver, tela.width/2 , tela.height/3 , 114, 114);
+	} else {
+		ctx.drawImage(imgWin, tela.width/20 , tela.height/3 , 114, 114);
+	}
+
+}	
+
