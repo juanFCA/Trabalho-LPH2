@@ -2,8 +2,8 @@ function desenha(){
 	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,tela.width,tela.height);
 	ctx.save();
-	ctx.scale(zoom,zoom);
-	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
+	//ctx.scale(zoom,zoom);
+	//ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
 	for(var i=0; i<NUM_ENEMIES; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
 			//pc.x = 240;
@@ -69,7 +69,7 @@ function desenha(){
 	if(pc.vida == 0 || pc.moedas == FASES*24){
 		statusJogo();
 	}
-	
+
 }
 
 function desenhaMapa(){
@@ -79,8 +79,10 @@ function desenhaMapa(){
 		for (var c = 0; c < colunas; c++) {
 			if(questTutorial.getCell(l,c)==0){
 				ctx.drawImage(imgWall[questTutorial.level],c*32,l*32);
-			} else {
+			}else if(questTutorial.getCell(l,c)==1){
 				ctx.drawImage(imgBlock[questTutorial.level],c*32,l*32);
+			}else if(questTutorial.getCell(l,c)>1){
+				ctx.drawImage(imgDoor,c*32,l*32);
 			}
 		}
 	}
@@ -104,5 +106,4 @@ function statusJogo(){
 		ctx.drawImage(imgWin, tela.width/20 , tela.height/3 , 114, 114);
 	}
 
-}	
-
+}
