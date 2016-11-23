@@ -3,6 +3,7 @@ function inimigospersegue(){
 		inimigos[i] = new SpriteInMap();
 		inimigos[i].imgY = 1;
 		inimigos[i].x = 15*32-Math.random()*32+32*i;
+		inimigos[i].posiciona();
 		inimigos[i].persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -35;
@@ -10,7 +11,7 @@ function inimigospersegue(){
 			else if (pc.x > this.x){
 				this.vx = +35;
 			}
-			else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+			if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
 				this.vy -= 220;
 			}
 		};

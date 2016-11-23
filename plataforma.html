@@ -73,14 +73,17 @@
 			pc.imune = 0;
 			pc.vida = 3;
 			pc.moedas = 0;
+			pc.posiciona();
 			var machado = new Machado();
 			machado.x = 40;
 			machado.y = 40;
 			var moeda = new Moeda();
+			moeda.posiciona();
 			var inimigos = [];
 			inimigospersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();
+
 
 		</script>
 	</body>

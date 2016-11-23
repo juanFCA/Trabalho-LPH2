@@ -159,6 +159,10 @@ Map.prototype.setGrid = function(grid){
 
   for(var lin= 1; lin < 16; lin++){
     for(var col = 1; col < 44; col++){
+      if(lin > 0 && lin < 6 && col > 0 && col < 4){
+        this.grid[lin][col] = 0;
+      }
+
       if(this.grid[lin][col] == 1 && this.grid[lin-1][col-1] == 0 && this.grid[lin-1][col] == 0 &&
         this.grid[lin-1][col+1] == 0 && this.grid[lin][col+1] == 1 && this.grid[lin+1][col+1] == 1 &&
         this.grid[lin+1][col] == 1 && this.grid[lin+1][col-1] == 0 && this.grid[lin][col-1] == 0){
@@ -199,7 +203,6 @@ if(count == 0 || count == 3){
 
     this.grid[l][c] = i;
   }
-
 }
 
 function Scenario(){
@@ -229,7 +232,6 @@ Scenario.prototype.getCols = function(){
 }
 
 var questTutorial = new Scenario();
-
 var SIZE = 4;
 var tutorial = [];
 for (var i=0; i<=SIZE; i++) {
