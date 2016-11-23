@@ -1,5 +1,5 @@
 function SpriteInMap(){
-  this.x = 32*3;
+  this.x = 32*2;
   this.y = 32*2;
   this.vx = 0;
   this.vy = 0;
@@ -91,4 +91,20 @@ SpriteInMap.prototype.colidiuCom = function(outro){
     return true;
   }
 
+}
+
+SpriteInMap.prototype.posiciona = function(){
+  if(questTutorial.getCell(Math.floor(this.y/32), Math.floor(this.x/32)) > 0){
+    var lin = Math.floor(this.y/32);
+    var col = Math.floor(this.x/32);
+    
+    for(lin; lin < 17; lin++){
+      for(col; col < 45; col++){
+        if(questTutorial.getCell(lin, col) == 0){
+          this.y = lin*32;
+          this.x = col*32;
+        }
+      }
+    }
+  }
 }

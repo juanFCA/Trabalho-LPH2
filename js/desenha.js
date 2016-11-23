@@ -11,7 +11,7 @@ function desenha(){
 			pc.vy = 0;
 			pc.imune = 3;
 			pc.vida--;
-			pc.vx = 	inimigos[i].vx;
+			pc.vx = inimigos[i].vx;
 			pc.vy = -150;
 			soundLib.play("pcmorre");
 		}
@@ -24,16 +24,6 @@ function desenha(){
 			inimigos[i].vy = 0;
 			soundLib.play("monstromorre");
 		}
-	}
-
-	if(pc.vida==0){
-		alert("Fim do Jogo - Total de Moedas : "+pc.moedas);
-		return;
-	}
-
-	if(pc.moedas==FASES*24){
-		alert("Venceu o Jogo - Total de Moedas : "+pc.moedas);
-		return;
 	}
 
 	if(moeda.colidiuCom(pc)){
@@ -54,8 +44,12 @@ function desenha(){
 
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
+	}else if(pc.vx>=0){
+		machado.x = pc.x+6;
+		machado.y = pc.y-16;
+		machado.angulo = -30;
 	}else{
-		machado.x = pc.x-8;
+		machado.x = pc.x-6;
 		machado.y = pc.y-16;
 		machado.angulo = -30;
 	}
@@ -63,11 +57,15 @@ function desenha(){
 	pc.imune -= dt;
 
 	for(var i=0; i<NUM_ENEMIES; i++){
-		inimigos[i].move(dt);
-		inimigos[i].persegue(pc);
+		if(pc.vida == 0 || pc.moedas == FASES*24){
+			inimigos[i].move(-dt);
+		}
+		else{
+			inimigos[i].move(dt);
+			inimigos[i].persegue(pc);
+		}
 	}
 	desenhaMapa();
-	//ctx.fillText(x++,50,20);
 	machado.desenha(ctx);
 	moeda.desenha(ctx);
 	if(pc.imune>0){
@@ -81,6 +79,14 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
+	desenhaStatus();
+
+	if(pc.vida == 0 || pc.moedas == FASES*24){
+		pc.move(-dt);
+		machado.moveSeVisivel(-dt);
+		statusJogo();
+	}
+
 }
 
 function desenhaMapa(){
@@ -90,9 +96,31 @@ function desenhaMapa(){
 		for (var c = 0; c < colunas; c++) {
 			if(questTutorial.getCell(l,c)==0){
 				ctx.drawImage(imgWall[questTutorial.level],c*32,l*32);
-			} else {
+			}else if(questTutorial.getCell(l,c)==1){
 				ctx.drawImage(imgBlock[questTutorial.level],c*32,l*32);
+			}else if(questTutorial.getCell(l,c)>1){
+				ctx.drawImage(imgDoor,c*32,l*32);
 			}
 		}
 	}
+}
+
+function desenhaStatus(){
+	for(var i = 0; i < pc.vida; i++){
+		ctx.drawImage(imgVida, 10+15*i, 15, 32, 32);
+	}
+  	ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 560, 0, 52,52);
+  	ctx.font = "24px serif";
+	ctx.textBaseline = "hanging";
+	ctx.fillStyle = "#FFD700";
+  	ctx.fillText(" X "+pc.moedas,600,22);
+}
+
+function statusJogo(){
+	if (pc.vida == 0) {
+		ctx.drawImage(imgOver, tela.width/2 , tela.height/3 , 114, 114);
+	} else {
+		ctx.drawImage(imgWin, tela.width/20 , tela.height/3 , 114, 114);
+	}
+
 }
