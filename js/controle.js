@@ -86,6 +86,24 @@ addEventListener('keydown', function(e){
 	}
 });
 
+addEventListener('keyup', function(e){
+	switch(e.keyCode){
+		case 37:
+		case 39:
+			pc.vx = 0;
+			e.preventDefault();
+			break;
+		case 38:
+			pc.ay = 0;
+			e.preventDefault();
+			break;
+	}
+});
+
+addEventListener('click', function(){
+	pc.iniciou = true;
+});
+
 function findDoor(d){
 	door = d;
 
@@ -101,16 +119,4 @@ function findDoor(d){
 }
 
 
-addEventListener('keyup', function(e){
-	switch(e.keyCode){
-		case 37:
-		case 39:
-			pc.vx = 0;
-			e.preventDefault();
-			break;
-		case 38:
-			pc.ay = 0;
-			e.preventDefault();
-			break;
-	}
-});
+
