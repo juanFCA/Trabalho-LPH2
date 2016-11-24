@@ -28,6 +28,7 @@
 			var zoom = 2;
 			var NUM_ENEMIES= 5;
 			var FASES = 4;
+			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
@@ -80,11 +81,10 @@
 			var moeda = new Moeda();
 			moeda.posiciona();
 			var inimigos = [];
+			var inimigos1 = [];
 			inimigospersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();
-
-
 		</script>
 	</body>
 </html>

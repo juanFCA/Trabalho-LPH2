@@ -6,8 +6,6 @@ function desenha(){
 	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
 	for(var i=0; i<NUM_ENEMIES; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
-			//pc.x = 240;
-			//pc.y = 40;
 			pc.vy = 0;
 			pc.imune = 3;
 			pc.vida--;
