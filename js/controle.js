@@ -16,6 +16,24 @@ function inimigospersegue(){
 			}
 		};
 	}
+
+	for(var i=0; i<NUM_ENEMIES1; i++){
+    inimigos1[i] = new SpriteInMap();
+    inimigos1[i].imgY = 3;
+    inimigos1[i].x = 10;
+    inimigos1[i].persegue = function(pc){
+      if(pc.x < this.x){
+        this.vx = -35;
+      }
+      else if (pc.x > this.x){
+        this.vx = +35;
+      }
+      else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+        this.vy -= 220;
+      }
+
+    };
+  } 
 }
 
 
@@ -68,6 +86,24 @@ addEventListener('keydown', function(e){
 	}
 });
 
+addEventListener('keyup', function(e){
+	switch(e.keyCode){
+		case 37:
+		case 39:
+			pc.vx = 0;
+			e.preventDefault();
+			break;
+		case 38:
+			pc.ay = 0;
+			e.preventDefault();
+			break;
+	}
+});
+
+addEventListener('click', function(){
+	pc.iniciou = true;
+});
+
 function findDoor(d){
 	door = d;
 
@@ -83,16 +119,4 @@ function findDoor(d){
 }
 
 
-addEventListener('keyup', function(e){
-	switch(e.keyCode){
-		case 37:
-		case 39:
-			pc.vx = 0;
-			e.preventDefault();
-			break;
-		case 38:
-			pc.ay = 0;
-			e.preventDefault();
-			break;
-	}
-});
+

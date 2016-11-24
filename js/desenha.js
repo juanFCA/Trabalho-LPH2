@@ -6,8 +6,6 @@ function desenha(){
 	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
 	for(var i=0; i<NUM_ENEMIES; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
-			//pc.x = 240;
-			//pc.y = 40;
 			pc.vy = 0;
 			pc.imune = 3;
 			pc.vida--;
@@ -45,12 +43,12 @@ function desenha(){
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
 	}else if(pc.vx>=0){
-		machado.x = pc.x+6;
-		machado.y = pc.y-16;
+		machado.x = pc.x-9;
+		machado.y = pc.y-19;
 		machado.angulo = -30;
 	}else{
-		machado.x = pc.x-6;
-		machado.y = pc.y-16;
+		machado.x = pc.x+9;
+		machado.y = pc.y-19;
 		machado.angulo = -30;
 	}
 
@@ -60,7 +58,7 @@ function desenha(){
 		if(pc.vida == 0 || pc.moedas == FASES*24){
 			inimigos[i].move(-dt);
 		}
-		else{
+		else{			
 			inimigos[i].move(dt);
 			inimigos[i].persegue(pc);
 		}
@@ -81,7 +79,7 @@ function desenha(){
 	ctx.restore();
 	desenhaStatus();
 
-	if(pc.vida == 0 || pc.moedas == FASES*24){
+	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
 		pc.move(-dt);
 		machado.moveSeVisivel(-dt);
 		statusJogo();
@@ -117,10 +115,24 @@ function desenhaStatus(){
 }
 
 function statusJogo(){
+	if (pc.iniciou == false){
+		ctx.drawImage(imgStart, 0, 0, 680, 320);
+	}
 	if (pc.vida == 0) {
-		ctx.drawImage(imgOver, tela.width/2 , tela.height/3 , 114, 114);
-	} else {
-		ctx.drawImage(imgWin, tela.width/20 , tela.height/3 , 114, 114);
+		ctx.drawImage(imgOver, 0, 0, 680, 320);
+		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);
+  		ctx.font = "24px serif";
+		ctx.textBaseline = "hanging";
+		ctx.fillStyle = "#000000";
+  		ctx.fillText(" = "+pc.moedas,320,250);
+	} 
+	if (pc.moedas == FASES*24) {
+		ctx.drawImage(imgWin, 0, 0, 680, 320);
+		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);
+  		ctx.font = "24px serif";
+		ctx.textBaseline = "hanging";
+		ctx.fillStyle = "#000000";
+  		ctx.fillText(" = "+pc.moedas,320,250);
 	}
 
 }

@@ -232,7 +232,7 @@ Scenario.prototype.getCols = function(){
 }
 
 var questTutorial = new Scenario();
-var SIZE = 4;
+var SIZE = 5;
 var tutorial = [];
 for (var i=0; i<=SIZE; i++) {
   tutorial[i] = new Map();
