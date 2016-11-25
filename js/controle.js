@@ -54,6 +54,7 @@ addEventListener('keydown', function(e){
 	switch(e.keyCode){
 		case 37:
 			pc.vx = -80;
+			pc.dir = -1;
 			e.preventDefault();
 			break;
 		case 38:
@@ -66,6 +67,7 @@ addEventListener('keydown', function(e){
 			break;
 		case 39:
 			pc.vx =  80;
+			pc.dir = 1;
 			e.preventDefault();
 			break;
 		case 32:
@@ -73,8 +75,8 @@ addEventListener('keydown', function(e){
 				machado.vx = machado.vy = machado.ax = machado.ay = 0
 				machado.x = pc.x;
 				machado.y = pc.y-16;
-				machado.vx = (pc.vx>=0)?400:-400;
-				machado.vy = 0;
+				machado.vx = pc.dir*400;
+				machado.vy = pc.vy;
 				machado.vang = 560;
 				soundLib.play("swing");
 				e.preventDefault();
@@ -147,12 +149,15 @@ function findDoor(d){
 function geraMoedas(){
 	for(var i = 0; i<moeda.length ; i++){
 		moeda[i] = new Moeda();
+
 		do{
-			xis[i] = 1+Math.floor(Math.random()*43);
-			yps[i] = 1+Math.floor(Math.random()*15);
-			moeda[i].x = xis[i]*32-16;
-			moeda[i].y = yps[i]*32;
-		}while(questTutorial.getCell(yps[i],xis[i])==1);
-		moeda[i].posiciona();	
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		moeda[i].x = (xi)*32;
+		moeda[i].y = (yi+1)*32;
+		moeda[i].mx = xi;
+		moeda[i].my = yi;
+		//moeda[i].posiciona();	
 	}
 }

@@ -10,6 +10,7 @@ body {
 	padding: 5px;
 	width: 684px;
 	height: 346px;
+	margin: auto;
 }
 #corpojogo {
 	margin: 0 auto;
@@ -32,4 +33,6 @@ body {
 #tela {
     position: relative;
     border: 2px inset gray;
+	width: 684px;
+	height: 346px;
 }

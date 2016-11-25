@@ -1,4 +1,5 @@
 function Machado(){
+  SpriteInMap.call(this);
   this.angulo = 0;
   this.imgY = 2;
   this.vang = 0;
