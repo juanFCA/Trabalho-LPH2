@@ -18,7 +18,7 @@
        			<div id="titulo">Trabalho de Hipermídia 2</div>
          	</div>
          	<div id="telajogo">
-            	<canvas id="tela" width="680" height="320"></canvas>
+            	<canvas id="tela" width="1680" height="620"></canvas>
         	</div>
         </div>
 
@@ -28,7 +28,7 @@
 			var zoom = 2;
 			var NUM_ENEMIES= 5;
 			var FASES = 5;
-			var moeda = [];
+			var moeda = new Array(24);
 			var xis = [];
 			var yps = [];
 			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
@@ -81,35 +81,6 @@
 			pc.iniciou = false;
 			var machado = new Machado();
 			geraMoedas();
-			function geraMoedas(){
-				for(var i = 0; i<24 ; i++){
-					moeda[i] = new Moeda();
-				}
-					for(var linha = 0; linha< 16; linha++){
-						for(var coluna = 0; coluna<45; coluna++){					
-								for(var i = 0; i<24 ; i++){
-									xis[i] = 1+Math.floor(Math.random()*43);
-									yps[i] = 1+Math.floor(Math.random()*15);
-									//if (questTutorial.getCell(yps[i],xis[i])==0){
-										moeda[i].x = xis[i]*32;
-										moeda[i].y = yps[i]*32;		
-										moeda[i].posiciona();			
-									//}
-
-
-								/*for( var i = 0; i<24; i++){
-									if(this.grid[xis[i]][yps[i]]==0){
-										moeda[i].x = xis[i]*32;
-										moeda[i].y = yps[i]*32;
-									}	
-								}*/
-
-							}
-						}								
-					}
-				}
-
-
 			var inimigos = [];
 			var inimigos1 = [];
 			inimigospersegue();

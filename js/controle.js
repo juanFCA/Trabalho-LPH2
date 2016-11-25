@@ -117,5 +117,16 @@ function findDoor(d){
 	}
 }
 
-
+function geraMoedas(){
+	for(var i = 0; i<moeda.length ; i++){
+		moeda[i] = new Moeda();
+		do{
+			xis[i] = 1+Math.floor(Math.random()*43);
+			yps[i] = 1+Math.floor(Math.random()*15);
+			moeda[i].x = xis[i]*32-16;
+			moeda[i].y = yps[i]*32;
+		}while(questTutorial.getCell(yps[i],xis[i])==1);
+		moeda[i].posiciona();	
+	}
+}
 
