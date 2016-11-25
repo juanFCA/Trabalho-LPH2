@@ -186,7 +186,7 @@ Map.prototype.setGrid = function(grid){
   }
 
 
-if(count == 0 || count == 3){
+if(count == 0 || count == 4){
   var NUM_PORTAIS = 2;
 }else{
   var NUM_PORTAIS = 3;
@@ -232,8 +232,9 @@ Scenario.prototype.getCols = function(){
 }
 
 var questTutorial = new Scenario();
-var SIZE = 4;
+var SIZE = 5;
 var tutorial = [];
+
 for (var i=0; i<=SIZE; i++) {
   tutorial[i] = new Map();
   questTutorial.setMap(i, tutorial[i]);
