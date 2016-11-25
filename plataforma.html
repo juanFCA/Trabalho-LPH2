@@ -5,35 +5,63 @@
 		<meta charset="utf-8" />
 		<script src="js/scenario.js" charset="utf-8"></script>
 		<script src="js/sprite.js" charset="utf-8"></script>
+		<script src="js/morcego.js" charset="utf-8"></script>
 		<script src="js/machado.js" charset="utf-8"></script>
 		<script src="js/moeda.js" charset="utf-8"></script>
 	    <script src="js/sound.js" charset="utf-8"></script>
-	    <link rel="stylesheet" href="css/style.css" />
+	    <script src="js/desenha.js" charset="utf-8"></script>
+	    <script src="js/controle.js" charset="utf-8"></script>
+	    <!-- <link rel="stylesheet" href="css/style.css" /> -->
 	</head>
 	<body>
 		<div id="corpojogo">
        		<div id="cabeçalho">
        			<div id="titulo">Trabalho de Hipermídia 2</div>
-       			<div class="painel" id="pvida"><canvas height="36" width="280" id="tvida"></div>
-            	<div class="painel" id="pnivel">Nível: <var type="number" id="pfase">1</var></div>
          	</div>
          	<div id="telajogo">
             	<canvas id="tela" width="680" height="320"></canvas>
         	</div>
         </div>
-		
+
 
 		<script>
+			var Totalmoedas = document.getElementById("tmoeda");
 			var zoom = 2;
 			var NUM_ENEMIES= 5;
+			var FASES = 5;
+			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
 			imgPc.src = 'img/pc.svg';
-			var imgWall = new Image();
-			imgWall.src = 'img/wall.svg';
-			var imgBlock = new Image();
-			imgBlock.src = 'img/block.svg';
+			var imgDoor = new Image();
+			imgDoor.src = 'img/door.svg';
+			var imgWall = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgWall[i] = new Image();
+			}
+			imgWall[0].src = 'img/wall.png';
+			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.svg';
+			imgWall[2].src = 'img/IMG 32px/fase neve fundo.svg';
+			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.svg';
+			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.svg';
+			var imgBlock = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgBlock[i] = new Image();
+			}
+			imgBlock[0].src = 'img/block.png';
+			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.svg';
+			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.svg';
+			imgBlock[3].src = 'img/IMG 32px/fase eletrica chão.svg';
+			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.svg';
+			var imgStart = new Image();
+			imgStart.src = 'img/start.png'
+			var imgOver = new Image();
+			imgOver.src = 'img/over.png'
+			var imgWin = new Image();
+			imgWin.src = 'img/win.png'
+			var imgVida = new Image();
+			imgVida.src = 'img/heart.png'
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");
@@ -43,158 +71,23 @@
 			var fps = 60;
 			var dt = 1.0/fps;
 			var g = 300;
-			//var mapa = tutorial.maps[1];
-
 			var pc = new SpriteInMap();
 			pc.imune = 0;
+			pc.vida = 3;
+			pc.moedas = 0;
+			pc.posiciona();
+			pc.iniciou = false;
 			var machado = new Machado();
-			machado.x = 40;
-			machado.y = 40;
 			var moeda = new Moeda();
-
+			moeda.posiciona();
+			var morcego = new Morcego();
+			morcego.x = 2*32;
+			morcego.y = 2*32;
 			var inimigos = [];
-			for(var i=0; i<NUM_ENEMIES; i++){
-				inimigos[i] = new SpriteInMap();
-				inimigos[i].imgY = 1;
-				inimigos[i].x = 15*32-Math.random()*32+32*i;
-				inimigos[i].persegue = function(pc){
-					if(pc.x < this.x){
-						this.vx = -35;
-					}
-					else if (pc.x > this.x){
-						this.vx = +35;
-					}
-					else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-						this.vy -= 220;
-					}
-				};
-			}
+			var inimigos1 = [];
+			inimigosPersegue();
 			setInterval(desenha, 1000*dt);
-			//desenhaMapa();
-
-
-			function desenha(){
-				ctx.fillStyle = "black";
-				ctx.fillRect(0,0,tela.width,tela.height);
-				ctx.save();
-				ctx.scale(zoom,zoom);
-				ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
-				for(var i=0; i<NUM_ENEMIES; i++){
-					if(pc.imune<=0 && inimigos[i].colidiuCom(pc)){
-						//pc.x = 240;
-						//pc.y = 40;
-						pc.vy = 0;
-						pc.imune = 3;
-						pc.vx = 	inimigos[i].vx;
-						pc.vy = -150;
-						soundLib.play("pcmorre");
-					}
-					if(machado.vang>0 && inimigos[i].colidiuCom(machado)){
-						machado.x = -240;
-						machado.y = -240;
-						machado.vang = 0;
-						inimigos[i].x = 20*32-Math.random()*32;
-						inimigos[i].y = 32;
-						inimigos[i].vy = 0;
-						soundLib.play("monstromorre");
-
-					}
-				}
-				if(moeda.colidiuCom(pc)){
-					soundLib.play("pegamoeda");
-					moeda.x = 16+32*(1+Math.floor(Math.random()*18));
-					moeda.y = 64;
-				}
-
-				pc.move(dt);
-				moeda.move(dt);
-
-				if(machado.vang>0){
-					machado.moveSeVisivel(dt);
-				}else{
-					machado.x = pc.x-8;
-					machado.y = pc.y-16;
-					machado.angulo = -30;
-				}
-
-				pc.imune -= dt;
-				for(var i=0; i<NUM_ENEMIES; i++){
-					inimigos[i].move(dt);
-					inimigos[i].persegue(pc);
-				}
-				desenhaMapa(questTutorial.level);
-				//ctx.fillText(x++,50,20);
-				machado.desenha(ctx);
-				moeda.desenha(ctx);
-				if(pc.imune>0){
-					ctx.globalAlpha = 0.2+0.6*Math.sin(8*pc.iddle*Math.PI);
-				}else{
-					ctx.globalAlpha = 1.0;
-				}
-				pc.desenha(ctx);
-				ctx.globalAlpha=1.0;
-				for(var i=0; i<NUM_ENEMIES; i++){
-					inimigos[i].desenha(ctx);
-				}
-				ctx.restore();
-			}
-
-			function desenhaMapa(){
-				var linhas = questTutorial.getRows();
-				var colunas =  questTutorial.getCols();
-				for (var l = 0; l < linhas; l++) {
-					for (var c = 0; c < colunas; c++) {
-						if(questTutorial.getCell(l,c)==0){
-							ctx.drawImage(imgWall,c*32,l*32);
-						} else {
-							ctx.drawImage(imgBlock,c*32,l*32);
-						}
-					}
-				}
-			}
-
-			addEventListener('keydown', function(e){
-				switch(e.keyCode){
-					case 37:
-						pc.vx = -80;
-						e.preventDefault();
-						break;
-					case 38:
-						if(pc.vy == 0 && questTutorial.getCell(pc.my+1,pc.mx) == 1){
-							pc.vy = pc.vy -230;
-						}
-						e.preventDefault();
-						break;
-					case 39:
-						pc.vx =  80;
-						e.preventDefault();
-						break;
-					case 32:
-							if(machado.vang>0) return;
-							machado.vx = machado.vy = machado.ax = machado.ay = 0
-							machado.x = pc.x;
-							machado.y = pc.y-16;
-							machado.vx = (pc.vx>=0)?400:-400;
-							machado.vy = 0;
-							machado.vang = 560;
-							soundLib.play("swing");
-							e.preventDefault();
-						break;
-				}
-			});
-			addEventListener('keyup', function(e){
-				switch(e.keyCode){
-					case 37:
-					case 39:
-						pc.vx = 0;
-						e.preventDefault();
-						break;
-					case 38:
-						pc.ay = 0;
-						e.preventDefault();
-						break;
-				}
-			});
+			desenha();
 		</script>
 	</body>
 </html>

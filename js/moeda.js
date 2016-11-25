@@ -1,7 +1,7 @@
 function Moeda(){
   this.imgY = 2;
   this.imgX = 1;
-  this.x = 16+32*(1+Math.floor(Math.random()*18));
+  this.x = 64;
   this.y = 64;
 }
 Moeda.prototype = new SpriteInMap();
