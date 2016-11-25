@@ -11,28 +11,34 @@ function SpriteInMap(){
   this.imgY = 0;
   this.iddle = 0;
   this.life = 0;
+  this.skill = false;
+  this.stamina = 5;
 }
 SpriteInMap.prototype.desenha = function(ctx){
-    if(this.vx>=0){
-
       ctx.save();
       ctx.translate(this.x,this.y);
-      ctx.scale(1,1);
-      ctx.drawImage(imgPc,
-        (this.imgX+Math.floor(this.iddle))*32,
-        this.imgY*32,32,32,
-        -16,-32,32,32);
+      if(this.skill == true && this.vy >= 0){
+        if(this.vx>=0){
+          ctx.scale(1,-1);
+        }else{
+          ctx.scale(-1,-1);
+        }
+        ctx.drawImage(imgPc,
+          (this.imgX+Math.floor(this.iddle))*32,
+          this.imgY*32,32,32,
+          -16,-12,32,32);
+      }else{
+        if(this.vx>=0){
+          ctx.scale(1,1);
+        }else{
+          ctx.scale(-1,1);
+        }
+        ctx.drawImage(imgPc,
+          (this.imgX+Math.floor(this.iddle))*32,
+          this.imgY*32,32,32,
+          -16,-32,32,32);
+      }
       ctx.restore();
-    }else{
-      ctx.save();
-      ctx.translate(this.x,this.y);
-      ctx.scale(-1,1);
-      ctx.drawImage(imgPc,
-        (this.imgX+Math.floor(this.iddle))*32,
-        this.imgY*32,32,32,
-        -16,-32,32,32);
-      ctx.restore();
-    }
     if(this.debug){
       ctx.strokeStyle = "red";
       ctx.beginPath();
@@ -56,8 +62,13 @@ SpriteInMap.prototype.move = function(dt){
     if(this.iddle>=2){
       this.iddle = 0;
     }
+
     this.vx = this.vx + this.ax*dt;
-    this.vy = this.vy + this.ay*dt + g*dt;
+    if(this.skill == true && this.stamina > 0){
+      this.vy = this.vy + this.ay*dt + (-4)*g*dt;
+    }else{
+      this.vy = this.vy + this.ay*dt + g*dt;
+    }
 
     if(questTutorial.getCell(this.my,this.mx+1)==1 && this.vx>0){
       this.vx = Math.min(this.vx, ((this.mx+1)*32-1-this.x)/dt);
@@ -97,7 +108,7 @@ SpriteInMap.prototype.posiciona = function(){
   if(questTutorial.getCell(Math.floor(this.y/32), Math.floor(this.x/32)) > 0){
     var lin = Math.floor(this.y/32);
     var col = Math.floor(this.x/32);
-    
+
     for(lin; lin < 17; lin++){
       for(col; col < 45; col++){
         if(questTutorial.getCell(lin, col) == 0){

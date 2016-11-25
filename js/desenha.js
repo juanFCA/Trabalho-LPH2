@@ -2,8 +2,8 @@ function desenha(){
 	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,tela.width,tela.height);
 	ctx.save();
-	//ctx.scale(zoom,zoom);
-	//ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
+	ctx.scale(zoom,zoom);
+	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
 	for(var i=0; i<NUM_ENEMIES; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
 			pc.vy = 0;
@@ -76,7 +76,7 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
-	
+
 	desenhaStatus();
 
 	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
@@ -112,6 +112,15 @@ function desenhaStatus(){
 	ctx.textBaseline = "hanging";
 	ctx.fillStyle = "#FFD700";
   	ctx.fillText(" X "+pc.moedas,600,22);
+
+	ctx.font = "18px serif";
+	ctx.fillText("STAMINA:",200,22);
+	if(pc.stamina > 2){
+		ctx.fillStyle = "#FFD700";
+	}else{
+		ctx.fillStyle = "#F00";
+	}
+	ctx.fillRect(300,20,32*pc.stamina,16);
 }
 
 function statusJogo(){
@@ -125,7 +134,7 @@ function statusJogo(){
 		ctx.textBaseline = "hanging";
 		ctx.fillStyle = "#000000";
   		ctx.fillText(" = "+pc.moedas,320,250);
-	} 
+	}
 	if (pc.moedas == FASES*24) {
 		ctx.drawImage(imgWin, 0, 0, 680, 320);
 		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);

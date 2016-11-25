@@ -33,7 +33,7 @@ function inimigospersegue(){
       }
 
     };
-  } 
+  }
 }
 
 
@@ -46,6 +46,8 @@ addEventListener('keydown', function(e){
 		case 38:
 			if(pc.vy == 0 && questTutorial.getCell(pc.my+1,pc.mx) == 1){
 				pc.vy = pc.vy -230;
+			}else if(pc.vy == 0 && questTutorial.getCell(pc.my-1,pc.mx) == 1 && pc.skill == true){
+				pc.vy = pc.vy +330;
 			}
 			e.preventDefault();
 			break;
@@ -54,7 +56,7 @@ addEventListener('keydown', function(e){
 			e.preventDefault();
 			break;
 		case 32:
-				if(machado.vang>0) return;
+				if(machado.vang>0 || pc.skill == true) return;
 				machado.vx = machado.vy = machado.ax = machado.ay = 0
 				machado.x = pc.x;
 				machado.y = pc.y-16;
@@ -83,6 +85,15 @@ addEventListener('keydown', function(e){
 				for(var a = 0; a < 90; a++){}
 				findDoor(2);
 			}
+			break;
+		case 17:
+			if(pc.stamina > 1){
+				pc.skill = true;
+				pc.stamina --;
+			}
+			e.preventDefault();
+			break;
+	}
 	}
 });
 
@@ -95,6 +106,10 @@ addEventListener('keyup', function(e){
 			break;
 		case 38:
 			pc.ay = 0;
+			e.preventDefault();
+			break;
+		case 17:
+			pc.skill = false;
 			e.preventDefault();
 			break;
 	}
@@ -129,4 +144,3 @@ function geraMoedas(){
 		moeda[i].posiciona();	
 	}
 }
-
