@@ -24,15 +24,18 @@ function desenha(){
 		}
 	}
 
-	if(moeda.colidiuCom(pc)){
+	for(var i=0; i<24; i++){
+		if(moeda[i].colidiuCom(pc)){
 		pc.moedas++;
 		soundLib.play("pegamoeda");
-		moeda.x = 16+32*(1+Math.floor(Math.random()*18));
-		moeda.y = 64;
+	}
 	}
 
 	pc.move(dt);
-	moeda.move(dt);
+
+	/*for(var i=0; i<24; i++){
+		moeda[i].move(dt);
+	}*/
 
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
@@ -59,7 +62,10 @@ function desenha(){
 	}
 	desenhaMapa();
 	machado.desenha(ctx);
-	moeda.desenha(ctx);
+	for(var i=0 ; i<24 ; i++){
+		moeda[i].desenha(ctx);
+	}
+
 	if(pc.imune>0){
 		ctx.globalAlpha = 0.2+0.6*Math.sin(8*pc.iddle*Math.PI);
 	}else{
