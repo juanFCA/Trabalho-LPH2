@@ -185,7 +185,6 @@ Map.prototype.setGrid = function(grid){
     }
   }
 
-
 if(count == 0 || count == 4){
   var NUM_PORTAIS = 2;
 }else{

@@ -1,4 +1,18 @@
-function inimigospersegue(){
+function morcegoPersegue(){
+	morcego.persegue = function(pc){
+			if(pc.x < this.x){
+				this.vx = -50;
+			}
+			else if (pc.x > this.x){
+				this.vx = +50;
+			}
+			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
+				this.vy += 270;
+			}
+		};
+}
+
+function inimigosPersegue(){
 	for(var i=0; i<NUM_ENEMIES; i++){
 		inimigos[i] = new SpriteInMap();
 		inimigos[i].imgY = 1;
@@ -18,22 +32,21 @@ function inimigospersegue(){
 	}
 
 	for(var i=0; i<NUM_ENEMIES1; i++){
-    inimigos1[i] = new SpriteInMap();
-    inimigos1[i].imgY = 3;
-    inimigos1[i].x = 10;
-    inimigos1[i].persegue = function(pc){
-      if(pc.x < this.x){
-        this.vx = -35;
-      }
-      else if (pc.x > this.x){
-        this.vx = +35;
-      }
-      else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-        this.vy -= 220;
-      }
-
-    };
-  }
+   		inimigos1[i] = new SpriteInMap();
+    	inimigos1[i].imgY = 3;
+    	inimigos1[i].x = 10;
+    	inimigos1[i].persegue = function(pc){
+      		if(pc.x < this.x){
+        		this.vx = -35;
+      		}
+      		else if (pc.x > this.x){
+        		this.vx = +35;
+      		}
+      		else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+        		this.vy -= 220;
+      		}
+    	};
+	} 
 }
 
 
@@ -93,7 +106,6 @@ addEventListener('keydown', function(e){
 			}
 			e.preventDefault();
 			break;
-	}
 	}
 });
 

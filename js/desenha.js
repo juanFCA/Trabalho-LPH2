@@ -33,6 +33,9 @@ function desenha(){
 	}
 
 	pc.move(dt);
+	morcego.move(dt);
+	morcegoPersegue();
+	morcego.persegue(pc);
 
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
@@ -59,6 +62,7 @@ function desenha(){
 	}
 	desenhaMapa();
 	machado.desenha(ctx);
+	morcego.desenha(ctx);
 
 	for(var i=0 ; i < moeda.length ; i++){
 		moeda[i].move(dt);

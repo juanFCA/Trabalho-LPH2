@@ -108,7 +108,6 @@ SpriteInMap.prototype.posiciona = function(){
   if(questTutorial.getCell(Math.floor(this.y/32), Math.floor(this.x/32)) > 0){
     var lin = Math.floor(this.y/32);
     var col = Math.floor(this.x/32);
-
     for(lin; lin < 17; lin++){
       for(col; col < 45; col++){
         if(questTutorial.getCell(lin, col) == 0){
