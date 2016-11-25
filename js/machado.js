@@ -12,8 +12,13 @@ Machado.prototype.desenha = function(ctx){
   ctx.translate(this.x,this.y);
   ctx.rotate(this.angulo/180*Math.PI);
   ctx.scale(1,1);
-  ctx.drawImage(imgPc,this.imgX,this.imgY*32,32,32,
-    -16,-16,32,32);
+  if(pc.skill == true && pc.vy >= 0){
+    ctx.drawImage(imgPc,this.imgX,this.imgY*32,32,32,
+      -26,0,32,32);
+  }else{
+    ctx.drawImage(imgPc,this.imgX,this.imgY*32,32,32,
+      -16,-16,32,32);
+  }
   ctx.restore();
   this.angulo += this.vang*dt;
 }

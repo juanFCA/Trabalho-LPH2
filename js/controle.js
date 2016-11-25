@@ -16,6 +16,24 @@ function inimigospersegue(){
 			}
 		};
 	}
+
+	for(var i=0; i<NUM_ENEMIES1; i++){
+    inimigos1[i] = new SpriteInMap();
+    inimigos1[i].imgY = 3;
+    inimigos1[i].x = 10;
+    inimigos1[i].persegue = function(pc){
+      if(pc.x < this.x){
+        this.vx = -35;
+      }
+      else if (pc.x > this.x){
+        this.vx = +35;
+      }
+      else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+        this.vy -= 220;
+      }
+
+    };
+  }
 }
 
 
@@ -28,6 +46,8 @@ addEventListener('keydown', function(e){
 		case 38:
 			if(pc.vy == 0 && questTutorial.getCell(pc.my+1,pc.mx) == 1){
 				pc.vy = pc.vy -230;
+			}else if(pc.vy == 0 && questTutorial.getCell(pc.my-1,pc.mx) == 1 && pc.skill == true){
+				pc.vy = pc.vy +330;
 			}
 			e.preventDefault();
 			break;
@@ -36,7 +56,7 @@ addEventListener('keydown', function(e){
 			e.preventDefault();
 			break;
 		case 32:
-				if(machado.vang>0) return;
+				if(machado.vang>0 || pc.skill == true) return;
 				machado.vx = machado.vy = machado.ax = machado.ay = 0
 				machado.x = pc.x;
 				machado.y = pc.y-16;
@@ -65,7 +85,38 @@ addEventListener('keydown', function(e){
 				for(var a = 0; a < 90; a++){}
 				findDoor(2);
 			}
+			e.preventDefault();
+			break;
+		case 17:
+			if(pc.stamina > 1){
+				pc.skill = true;
+				pc.stamina --;
+			}
+			e.preventDefault();
+			break;
 	}
+});
+
+addEventListener('keyup', function(e){
+	switch(e.keyCode){
+		case 37:
+		case 39:
+			pc.vx = 0;
+			e.preventDefault();
+			break;
+		case 38:
+			pc.ay = 0;
+			e.preventDefault();
+			break;
+		case 17:
+			pc.skill = false;
+			e.preventDefault();
+			break;
+	}
+});
+
+addEventListener('click', function(){
+	pc.iniciou = true;
 });
 
 function findDoor(d){
@@ -79,20 +130,4 @@ function findDoor(d){
 			}
 		}
 	}
-
 }
-
-
-addEventListener('keyup', function(e){
-	switch(e.keyCode){
-		case 37:
-		case 39:
-			pc.vx = 0;
-			e.preventDefault();
-			break;
-		case 38:
-			pc.ay = 0;
-			e.preventDefault();
-			break;
-	}
-});

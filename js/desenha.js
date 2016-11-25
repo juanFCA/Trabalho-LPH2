@@ -6,8 +6,6 @@ function desenha(){
 	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
 	for(var i=0; i<NUM_ENEMIES; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
-			//pc.x = 240;
-			//pc.y = 40;
 			pc.vy = 0;
 			pc.imune = 3;
 			pc.vida--;
@@ -26,25 +24,28 @@ function desenha(){
 		}
 	}
 
-	if(moeda.colidiuCom(pc)){
+	for(var i=0; i<24; i++){
+		if(moeda[i].colidiuCom(pc)){
 		pc.moedas++;
 		soundLib.play("pegamoeda");
-		moeda.x = 16+32*(1+Math.floor(Math.random()*18));
-		moeda.y = 64;
+	}
 	}
 
 	pc.move(dt);
-	moeda.move(dt);
+
+	/*for(var i=0; i<24; i++){
+		moeda[i].move(dt);
+	}*/
 
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
 	}else if(pc.vx>=0){
-		machado.x = pc.x+6;
-		machado.y = pc.y-16;
+		machado.x = pc.x-9;
+		machado.y = pc.y-19;
 		machado.angulo = -30;
 	}else{
-		machado.x = pc.x-6;
-		machado.y = pc.y-16;
+		machado.x = pc.x+9;
+		machado.y = pc.y-19;
 		machado.angulo = -30;
 	}
 
@@ -61,7 +62,10 @@ function desenha(){
 	}
 	desenhaMapa();
 	machado.desenha(ctx);
-	moeda.desenha(ctx);
+	for(var i=0 ; i<24 ; i++){
+		moeda[i].desenha(ctx);
+	}
+
 	if(pc.imune>0){
 		ctx.globalAlpha = 0.2+0.6*Math.sin(8*pc.iddle*Math.PI);
 	}else{
@@ -73,9 +77,10 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
+
 	desenhaStatus();
 
-	if(pc.vida == 0 || pc.moedas == FASES*24){
+	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
 		pc.move(-dt);
 		machado.moveSeVisivel(-dt);
 		statusJogo();
@@ -108,13 +113,36 @@ function desenhaStatus(){
 	ctx.textBaseline = "hanging";
 	ctx.fillStyle = "#FFD700";
   	ctx.fillText(" X "+pc.moedas,600,22);
+
+	ctx.font = "18px serif";
+	ctx.fillText("STAMINA:",200,22);
+	if(pc.stamina > 2){
+		ctx.fillStyle = "#FFD700";
+	}else{
+		ctx.fillStyle = "#F00";
+	}
+	ctx.fillRect(300,20,32*pc.stamina,16);
 }
 
 function statusJogo(){
+	if (pc.iniciou == false){
+		ctx.drawImage(imgStart, 0, 0, 680, 320);
+	}
 	if (pc.vida == 0) {
-		ctx.drawImage(imgOver, tela.width/2 , tela.height/3 , 114, 114);
-	} else {
-		ctx.drawImage(imgWin, tela.width/20 , tela.height/3 , 114, 114);
+		ctx.drawImage(imgOver, 0, 0, 680, 320);
+		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);
+  		ctx.font = "24px serif";
+		ctx.textBaseline = "hanging";
+		ctx.fillStyle = "#000000";
+  		ctx.fillText(" = "+pc.moedas,320,250);
+	}
+	if (pc.moedas == FASES*24) {
+		ctx.drawImage(imgWin, 0, 0, 680, 320);
+		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);
+  		ctx.font = "24px serif";
+		ctx.textBaseline = "hanging";
+		ctx.fillStyle = "#000000";
+  		ctx.fillText(" = "+pc.moedas,320,250);
 	}
 
 }
