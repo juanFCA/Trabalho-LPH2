@@ -71,6 +71,7 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
+	
 	desenhaStatus();
 
 	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
