@@ -24,15 +24,36 @@ function desenha(){
 		}
 	}
 
-	if(moeda.colidiuCom(pc)){
-		pc.moedas++;
-		soundLib.play("pegamoeda");
-		moeda.x = 16+32*(1+Math.floor(Math.random()*18));
-		moeda.y = 64;
+	for(var i=0; i<moeda.length; i++){
+		if(moeda[i].colidiuCom(pc)){
+			moeda.splice(i,1);
+			pc.moedas++;
+			soundLib.play("pegamoeda");
+		}
 	}
 
+	if(morcego.colidiuCom(pc)){
+		if(pc.stamina > 0){
+			pc.stamina--;
+		}		
+	}
+	
+	if(pc.stamina < 5){
+		pc.stamina = pc.stamina + 0.0001;
+	}	
+
+	if(machado.vang>0 && morcego.colidiuCom(machado)){
+			machado.x = -240;
+			machado.y = -240;
+			machado.vang = 0;
+			morcego.x = 20*32-Math.random()*32;
+			morcego.y = 32;
+			morcego.vy = 0;
+			soundLib.play("monstromorre");
+		}
+
+
 	pc.move(dt);
-	moeda.move(dt);
 	morcego.move(dt);
 	morcegoPersegue();
 	morcego.persegue(pc);
@@ -62,8 +83,13 @@ function desenha(){
 	}
 	desenhaMapa();
 	machado.desenha(ctx);
-	moeda.desenha(ctx);
 	morcego.desenha(ctx);
+
+	for(var i=0 ; i < moeda.length ; i++){
+		moeda[i].move(dt);
+		moeda[i].desenha(ctx);
+	}
+
 	if(pc.imune>0){
 		ctx.globalAlpha = 0.2+0.6*Math.sin(8*pc.iddle*Math.PI);
 	}else{
@@ -75,6 +101,7 @@ function desenha(){
 		inimigos[i].desenha(ctx);
 	}
 	ctx.restore();
+
 	desenhaStatus();
 
 	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
@@ -110,6 +137,15 @@ function desenhaStatus(){
 	ctx.textBaseline = "hanging";
 	ctx.fillStyle = "#FFD700";
   	ctx.fillText(" X "+pc.moedas,600,22);
+
+	ctx.font = "18px serif";
+	ctx.fillText("STAMINA:",200,22);
+	if(pc.stamina > 2){
+		ctx.fillStyle = "#FFD700";
+	}else{
+		ctx.fillStyle = "#F00";
+	}
+	ctx.fillRect(300,20,32*pc.stamina,16);
 }
 
 function statusJogo(){
@@ -123,7 +159,7 @@ function statusJogo(){
 		ctx.textBaseline = "hanging";
 		ctx.fillStyle = "#000000";
   		ctx.fillText(" = "+pc.moedas,320,250);
-	} 
+	}
 	if (pc.moedas == FASES*24) {
 		ctx.drawImage(imgWin, 0, 0, 680, 320);
 		ctx.drawImage(imgPc, 1*32, 2*32, 32, 32, 280, 230, 52,52);
