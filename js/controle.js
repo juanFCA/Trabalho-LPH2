@@ -1,4 +1,18 @@
-function inimigospersegue(){
+function morcegoPersegue(){
+	morcego.persegue = function(pc){
+			if(pc.x < this.x){
+				this.vx = -50;
+			}
+			else if (pc.x > this.x){
+				this.vx = +50;
+			}
+			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
+				this.vy += 270;
+			}
+		};
+}
+
+function inimigosPersegue(){
 	for(var i=0; i<NUM_ENEMIES; i++){
 		inimigos[i] = new SpriteInMap();
 		inimigos[i].imgY = 1;
@@ -18,22 +32,21 @@ function inimigospersegue(){
 	}
 
 	for(var i=0; i<NUM_ENEMIES1; i++){
-    inimigos1[i] = new SpriteInMap();
-    inimigos1[i].imgY = 3;
-    inimigos1[i].x = 10;
-    inimigos1[i].persegue = function(pc){
-      if(pc.x < this.x){
-        this.vx = -35;
-      }
-      else if (pc.x > this.x){
-        this.vx = +35;
-      }
-      else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-        this.vy -= 220;
-      }
-
-    };
-  }
+   		inimigos1[i] = new SpriteInMap();
+    	inimigos1[i].imgY = 3;
+    	inimigos1[i].x = 10;
+    	inimigos1[i].persegue = function(pc){
+      		if(pc.x < this.x){
+        		this.vx = -35;
+      		}
+      		else if (pc.x > this.x){
+        		this.vx = +35;
+      		}
+      		else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+        		this.vy -= 220;
+      		}
+    	};
+	} 
 }
 
 
@@ -41,6 +54,7 @@ addEventListener('keydown', function(e){
 	switch(e.keyCode){
 		case 37:
 			pc.vx = -80;
+			pc.dir = -1;
 			e.preventDefault();
 			break;
 		case 38:
@@ -53,6 +67,7 @@ addEventListener('keydown', function(e){
 			break;
 		case 39:
 			pc.vx =  80;
+			pc.dir = 1;
 			e.preventDefault();
 			break;
 		case 32:
@@ -60,8 +75,8 @@ addEventListener('keydown', function(e){
 				machado.vx = machado.vy = machado.ax = machado.ay = 0
 				machado.x = pc.x;
 				machado.y = pc.y-16;
-				machado.vx = (pc.vx>=0)?400:-400;
-				machado.vy = 0;
+				machado.vx = pc.dir*400;
+				machado.vy = pc.vy;
 				machado.vang = 560;
 				soundLib.play("swing");
 				e.preventDefault();
@@ -85,7 +100,6 @@ addEventListener('keydown', function(e){
 				for(var a = 0; a < 90; a++){}
 				findDoor(2);
 			}
-			e.preventDefault();
 			break;
 		case 17:
 			if(pc.stamina > 1){
@@ -129,5 +143,21 @@ function findDoor(d){
 				pc.x = colunas*32;
 			}
 		}
+	}
+}
+
+function geraMoedas(){
+	for(var i = 0; i<moeda.length ; i++){
+		moeda[i] = new Moeda();
+
+		do{
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		moeda[i].x = (xi)*32;
+		moeda[i].y = (yi+1)*32;
+		moeda[i].mx = xi;
+		moeda[i].my = yi;
+		//moeda[i].posiciona();	
 	}
 }

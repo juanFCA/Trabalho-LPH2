@@ -185,7 +185,6 @@ Map.prototype.setGrid = function(grid){
     }
   }
 
-
 if(count == 0 || count == 4){
   var NUM_PORTAIS = 2;
 }else{
@@ -220,6 +219,8 @@ Scenario.prototype.getMap = function(level){
 }
 
 Scenario.prototype.getCell = function(y, x){
+  if(x<0||y<0||this.maps[this.level].grid.length<y||this.maps[this.level].grid[0].length<x)
+    return -1;
   return this.maps[this.level].grid[y][x];
 }
 

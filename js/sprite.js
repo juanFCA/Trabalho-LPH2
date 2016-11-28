@@ -13,12 +13,13 @@ function SpriteInMap(){
   this.life = 0;
   this.skill = false;
   this.stamina = 5;
+  this.dir = 1;
 }
 SpriteInMap.prototype.desenha = function(ctx){
       ctx.save();
       ctx.translate(this.x,this.y);
       if(this.skill == true && this.vy >= 0){
-        if(this.vx>=0){
+        if(this.dir>=0){
           ctx.scale(1,-1);
         }else{
           ctx.scale(-1,-1);
@@ -28,7 +29,7 @@ SpriteInMap.prototype.desenha = function(ctx){
           this.imgY*32,32,32,
           -16,-12,32,32);
       }else{
-        if(this.vx>=0){
+        if(this.dir>=0){
           ctx.scale(1,1);
         }else{
           ctx.scale(-1,1);
@@ -40,15 +41,7 @@ SpriteInMap.prototype.desenha = function(ctx){
       }
       ctx.restore();
     if(this.debug){
-      ctx.strokeStyle = "red";
-      ctx.beginPath();
-      ctx.moveTo(this.x-5,this.y-5);
-      ctx.lineTo(this.x+5,this.y+5);
-      ctx.lineTo(this.x+5,this.y-5);
-      ctx.lineTo(this.x-5,this.y+5);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.strokeRect(this.mx*32, this.my*32,32,32);
+      this.desenhaDebug(ctx);
     }
     if(this.vy!=0){
       this.imgX = 2;
@@ -58,11 +51,13 @@ SpriteInMap.prototype.desenha = function(ctx){
   };
 
 SpriteInMap.prototype.move = function(dt){
+    
     this.iddle+=dt;
     if(this.iddle>=2){
       this.iddle = 0;
     }
-
+   
+ 
     this.vx = this.vx + this.ax*dt;
     if(this.skill == true && this.stamina > 0){
       this.vy = this.vy + this.ay*dt + (-4)*g*dt;
@@ -108,7 +103,6 @@ SpriteInMap.prototype.posiciona = function(){
   if(questTutorial.getCell(Math.floor(this.y/32), Math.floor(this.x/32)) > 0){
     var lin = Math.floor(this.y/32);
     var col = Math.floor(this.x/32);
-
     for(lin; lin < 17; lin++){
       for(col; col < 45; col++){
         if(questTutorial.getCell(lin, col) == 0){
@@ -118,4 +112,18 @@ SpriteInMap.prototype.posiciona = function(){
       }
     }
   }
+}
+
+SpriteInMap.prototype.desenhaDebug = function(ctx){
+
+      ctx.strokeStyle = "red";
+      ctx.beginPath();
+      ctx.moveTo(this.x-5,this.y-5);
+      ctx.lineTo(this.x+5,this.y+5);
+      ctx.lineTo(this.x+5,this.y-5);
+      ctx.lineTo(this.x-5,this.y+5);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.strokeRect(this.mx*32, this.my*32,32,32);
+
 }
