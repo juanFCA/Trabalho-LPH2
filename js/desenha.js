@@ -24,18 +24,26 @@ function desenha(){
 		}
 	}
 
-	for(var i=0; i<24; i++){
+	for(var i=0; i<moeda.length; i++){
 		if(moeda[i].colidiuCom(pc)){
-		pc.moedas++;
-		soundLib.play("pegamoeda");
+			moeda.splice(i,1);
+			pc.moedas++;
+			soundLib.play("pegamoeda");
+		}
+	if(morcego.colidiuCom(pc)){
+		if(pc.stamina > 0){
+			pc.stamina--;
+		}		
+	}
+	if(pc.stamina < 5){
+		pc.stamina = pc.stamina + 0.0001;
 	}
 	}
 
 	pc.move(dt);
-
-	/*for(var i=0; i<24; i++){
-		moeda[i].move(dt);
-	}*/
+	morcego.move(dt);
+	morcegoPersegue();
+	morcego.persegue(pc);
 
 	if(machado.vang>0){
 		machado.moveSeVisivel(dt);
@@ -55,14 +63,17 @@ function desenha(){
 		if(pc.vida == 0 || pc.moedas == FASES*24){
 			inimigos[i].move(-dt);
 		}
-		else{
+		else{			
 			inimigos[i].move(dt);
 			inimigos[i].persegue(pc);
 		}
 	}
 	desenhaMapa();
 	machado.desenha(ctx);
-	for(var i=0 ; i<24 ; i++){
+	morcego.desenha(ctx);
+
+	for(var i=0 ; i < moeda.length ; i++){
+		moeda[i].move(dt);
 		moeda[i].desenha(ctx);
 	}
 
