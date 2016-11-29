@@ -89,6 +89,7 @@ addEventListener('keydown', function(e){
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
 				questTutorial.level++;
 				geraMoedas();
+				geraFranguinhos();
 				pc.posiciona();
 				if(questTutorial.level == 3){
 					for(var a = 0; a < 90; a++){}
@@ -149,15 +150,29 @@ function findDoor(d){
 }
 
 function geraMoedas(){
-		for(var i = 0; i<moeda[questTutorial.level].length ; i++){
-			moeda[questTutorial.level][i] = new Moeda();
-			do{
-				xi = 2+Math.floor(Math.random()*43);
-				yi = 2+Math.floor(Math.random()*13);
-			}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
-			moeda[questTutorial.level][i].x = (xi)*32;
-			moeda[questTutorial.level][i].y = (yi+1)*32;
-			moeda[questTutorial.level][i].mx = xi;
-			moeda[questTutorial.level][i].my = yi;
-		}
+	for(var i = 0; i<moeda[questTutorial.level].length ; i++){
+		moeda[questTutorial.level][i] = new Moeda();
+		do{
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		moeda[questTutorial.level][i].x = (xi)*32;
+		moeda[questTutorial.level][i].y = (yi+1)*32;
+		moeda[questTutorial.level][i].mx = xi;
+		moeda[questTutorial.level][i].my = yi;
+	}
+}
+
+function geraFranguinhos(){
+	for(var i = 0; i<franguinho[questTutorial.level].length ; i++){
+		franguinho[questTutorial.level][i] = new Frango();
+		do{
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		franguinho[questTutorial.level][i].x = (xi)*32;
+		franguinho[questTutorial.level][i].y = (yi+1)*32;
+		franguinho[questTutorial.level][i].mx = xi;
+		franguinho[questTutorial.level][i].my = yi;
+	}
 }

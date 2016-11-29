@@ -8,6 +8,7 @@
 		<script src="js/morcego.js" charset="utf-8"></script>
 		<script src="js/machado.js" charset="utf-8"></script>
 		<script src="js/moeda.js" charset="utf-8"></script>
+		<script src="js/frango.js" charset="utf-8"></script>
 	    <script src="js/sound.js" charset="utf-8"></script>
 	    <script src="js/desenha.js" charset="utf-8"></script>
 	    <script src="js/controle.js" charset="utf-8"></script>
@@ -32,6 +33,10 @@
 			var moeda = new Array(FASES);
 			for (var i = 0; i < FASES; i++) {
   				moeda[i] = new Array(24);
+			}
+			var franguinho = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				franguinho[i] = new Array(2);
 			}
 			var xis = [];
 			var yps = [];
@@ -87,6 +92,7 @@
 			pc.iniciou = false;
 			var machado = new Machado();
 			geraMoedas();
+			geraFranguinhos();
 			var inimigos = [];
 			var inimigos1 = [];
 			var morcego = new Morcego();

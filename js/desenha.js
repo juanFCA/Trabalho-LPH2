@@ -32,6 +32,14 @@ function desenha(){
 		}
 	}
 
+	for(var i=0; i<franguinho[questTutorial.level].length; i++){
+		if(franguinho[questTutorial.level][i].colidiuCom(pc)){
+			franguinho[questTutorial.level].splice(i,1);
+			pc.stamina+=2;
+			soundLib.play("pegamoeda");
+		}
+	}
+
 	if(morcego.colidiuCom(pc)){
 		if(pc.stamina > 0){
 			pc.stamina--;
@@ -87,6 +95,11 @@ function desenha(){
 	for(var i=0 ; i < moeda[questTutorial.level].length ; i++){
 		moeda[questTutorial.level][i].move(dt);
 		moeda[questTutorial.level][i].desenha(ctx);
+	}
+
+	for(var i=0 ; i < franguinho[questTutorial.level].length ; i++){
+		franguinho[questTutorial.level][i].move(dt);
+		franguinho[questTutorial.level][i].desenha(ctx);
 	}
 
 	if(pc.imune>0){
