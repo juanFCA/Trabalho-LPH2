@@ -32,6 +32,16 @@ function desenha(){
 		}
 	}
 
+	if(morcego.colidiuCom(pc)){
+		if(pc.stamina > 0){
+			pc.stamina--;
+		}		
+	}
+	
+	if(pc.stamina < 5){
+		pc.stamina = pc.stamina + 0.0001;
+	}
+
 	pc.move(dt);
 	morcego.move(dt);
 	morcegoPersegue();

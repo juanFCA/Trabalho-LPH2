@@ -87,8 +87,11 @@
 			var inimigos = [];
 			var inimigos1 = [];
 			var morcego = new Morcego();
-			morcego.x = 2*32;
-			morcego.y = 2*32;
+
+			morcego.x = 34*32;
+			morcego.y = 9*32;
+			morcego.posiciona();
+
 			inimigosPersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();
