@@ -30,6 +30,7 @@ function desenha(){
 			pc.moedas++;
 			soundLib.play("pegamoeda");
 		}
+<<<<<<< HEAD
 	}
 
 	for(var i=0; i<franguinho[questTutorial.level].length; i++){
@@ -40,10 +41,8 @@ function desenha(){
 		}
 	}
 
-	if(morcego.colidiuCom(pc)){
-		if(pc.stamina > 0){
-			pc.stamina--;
-		}		
+	if(morcego.colidiuCom(pc) && pc.stamina > 1){
+			pc.stamina = pc.stamina - 0.1;		
 	}
 	
 	if(pc.stamina < 5){

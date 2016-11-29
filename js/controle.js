@@ -61,7 +61,7 @@ addEventListener('keydown', function(e){
 			if(pc.vy == 0 && questTutorial.getCell(pc.my+1,pc.mx) == 1){
 				pc.vy = pc.vy -230;
 			}else if(pc.vy == 0 && questTutorial.getCell(pc.my-1,pc.mx) == 1 && pc.skill == true){
-				pc.vy = pc.vy +330;
+				pc.vy = pc.vy +200;
 			}
 			e.preventDefault();
 			break;
@@ -107,7 +107,7 @@ addEventListener('keydown', function(e){
 		case 17:
 			if(pc.stamina > 1){
 				pc.skill = true;
-				pc.stamina --;
+				pc.vy = pc.vy - 230;
 			}
 			e.preventDefault();
 			break;
@@ -127,6 +127,7 @@ addEventListener('keyup', function(e){
 			break;
 		case 17:
 			pc.skill = false;
+			if(pc.stamina >= 1) pc.stamina--;			
 			e.preventDefault();
 			break;
 	}
