@@ -23,10 +23,10 @@ function desenha(){
 			soundLib.play("monstromorre");
 		}
 	}
-
-	for(var i=0; i<moeda.length; i++){
-		if(moeda[i].colidiuCom(pc)){
-			moeda.splice(i,1);
+	
+	for(var i=0; i<moeda[questTutorial.level].length; i++){
+		if(moeda[questTutorial.level][i].colidiuCom(pc)){
+			moeda[questTutorial.level].splice(i,1);
 			pc.moedas++;
 			soundLib.play("pegamoeda");
 		}
@@ -37,7 +37,7 @@ function desenha(){
 			pc.stamina--;
 		}		
 	}
-	
+
 	if(pc.stamina < 5){
 		pc.stamina = pc.stamina + 0.0001;
 	}
@@ -74,9 +74,9 @@ function desenha(){
 	machado.desenha(ctx);
 	morcego.desenha(ctx);
 
-	for(var i=0 ; i < moeda.length ; i++){
-		moeda[i].move(dt);
-		moeda[i].desenha(ctx);
+	for(var i=0 ; i < moeda[questTutorial.level].length ; i++){
+		moeda[questTutorial.level][i].move(dt);
+		moeda[questTutorial.level][i].desenha(ctx);
 	}
 
 	if(pc.imune>0){

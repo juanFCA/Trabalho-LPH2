@@ -88,6 +88,8 @@ addEventListener('keydown', function(e){
 				findDoor(2);
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
 				questTutorial.level++;
+				geraMoedas();
+				pc.posiciona();
 				if(questTutorial.level == 3){
 					for(var a = 0; a < 90; a++){}
 					findDoor(2);
@@ -147,17 +149,15 @@ function findDoor(d){
 }
 
 function geraMoedas(){
-	for(var i = 0; i<moeda.length ; i++){
-		moeda[i] = new Moeda();
-
-		do{
-			xi = 2+Math.floor(Math.random()*43);
-			yi = 2+Math.floor(Math.random()*13);
-		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
-		moeda[i].x = (xi)*32;
-		moeda[i].y = (yi+1)*32;
-		moeda[i].mx = xi;
-		moeda[i].my = yi;
-		//moeda[i].posiciona();	
-	}
+		for(var i = 0; i<moeda[questTutorial.level].length ; i++){
+			moeda[questTutorial.level][i] = new Moeda();
+			do{
+				xi = 2+Math.floor(Math.random()*43);
+				yi = 2+Math.floor(Math.random()*13);
+			}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+			moeda[questTutorial.level][i].x = (xi)*32;
+			moeda[questTutorial.level][i].y = (yi+1)*32;
+			moeda[questTutorial.level][i].mx = xi;
+			moeda[questTutorial.level][i].my = yi;
+		}
 }

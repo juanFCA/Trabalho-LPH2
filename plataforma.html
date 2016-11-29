@@ -29,7 +29,10 @@
 			var zoom = 2;
 			var NUM_ENEMIES= 5;
 			var FASES = 5;
-			var moeda = new Array(24);
+			var moeda = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				moeda[i] = new Array(24);
+			}
 			var xis = [];
 			var yps = [];
 			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
@@ -43,21 +46,21 @@
 			for (var i = 0 ; i < FASES; i++) {
 				imgWall[i] = new Image();
 			}
-			imgWall[0].src = 'img/wall.svg';
-			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.svg';
-			imgWall[2].src = 'img/IMG 32px/fase neve fundo.svg';
-			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.svg';
-			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.svg';
+			imgWall[0].src = 'img/wall.png';
+			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.png';
+			imgWall[2].src = 'img/IMG 32px/fase neve fundo.png';
+			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.png';
+			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.png';
 			
 			var imgBlock = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgBlock[i] = new Image();
 			}
-			imgBlock[0].src = 'img/block.svg';
-			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.svg';
-			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.svg';
-			imgBlock[3].src = 'img/IMG 32px/fase eletrica chão.svg';
-			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.svg';
+			imgBlock[0].src = 'img/block.png';
+			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.png';
+			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.png';
+			imgBlock[3].src = 'img/IMG 32px/fase eletrica chão.png';
+			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.png';
 
 			var imgStart = new Image();
 			imgStart.src = 'img/start.png'
