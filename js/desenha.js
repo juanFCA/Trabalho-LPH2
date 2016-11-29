@@ -37,9 +37,19 @@ function desenha(){
 			pc.stamina--;
 		}		
 	}
-
+	
 	if(pc.stamina < 5){
 		pc.stamina = pc.stamina + 0.0001;
+	}	
+
+	if(machado.vang>0 && morcego.colidiuCom(machado)){
+		machado.x = -240;
+		machado.y = -240;
+		machado.vang = 0;
+		morcego.x = 20*32-Math.random()*32;
+		morcego.y = 32;
+		morcego.vy = 0;
+		soundLib.play("monstromorre");
 	}
 
 	pc.move(dt);
