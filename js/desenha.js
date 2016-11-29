@@ -30,7 +30,6 @@ function desenha(){
 			pc.moedas++;
 			soundLib.play("pegamoeda");
 		}
-<<<<<<< HEAD
 	}
 
 	for(var i=0; i<franguinho[questTutorial.level].length; i++){
@@ -115,7 +114,7 @@ function desenha(){
 
 	desenhaStatus();
 
-	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == 0){
+	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == false){
 		pc.move(-dt);
 		machado.moveSeVisivel(-dt);
 		statusJogo();
