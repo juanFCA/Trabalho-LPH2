@@ -124,7 +124,7 @@ addEventListener('keyup', function(e){
 			break;
 		case 17:
 			pc.skill = false;
-			pc.stamina--;
+			if(pc.stamina >= 1) pc.stamina--;			
 			e.preventDefault();
 			break;
 	}
