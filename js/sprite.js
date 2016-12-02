@@ -57,7 +57,6 @@ SpriteInMap.prototype.move = function(dt){
       this.iddle = 0;
     }
    
- 
     this.vx = this.vx + this.ax*dt;
     if(this.skill == true && this.stamina > 0){
       this.vy = this.vy + this.ay*dt + (-1)*g*dt;

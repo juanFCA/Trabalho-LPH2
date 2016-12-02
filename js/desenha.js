@@ -14,8 +14,8 @@ function desenha(){
 			soundLib.play("pcmorre");
 		}
 		if(machado.vang>0 && inimigos[i].colidiuCom(machado)){
-			machado.x = -240;
-			machado.y = -240;
+			machado.x = pc.x-9;
+			machado.y = pc.y-19;
 			machado.vang = 0;
 			inimigos[i].x = 20*32-Math.random()*32;
 			inimigos[i].y = 32;
@@ -48,8 +48,8 @@ function desenha(){
 	}	
 
 	if(machado.vang>0 && morcego.colidiuCom(machado)){
-		machado.x = -240;
-		machado.y = -240;
+		machado.x = pc.x-9;
+		machado.y = pc.y-19;
 		machado.vang = 0;
 		morcego.x = 20*32-Math.random()*32;
 		morcego.y = 32;
@@ -57,12 +57,14 @@ function desenha(){
 		soundLib.play("monstromorre");
 	}
 
-	pc.move(dt);
-	morcego.move(dt);
-	morcegoPersegue();
-	morcego.persegue(pc);
+	if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){
+		pc.move(dt);
+		morcego.move(dt);
+		morcegoPersegue();
+		morcego.persegue(pc);
+	}
 
-	if(machado.vang>0){
+	if(machado.vang>0 && (pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true)){
 		machado.moveSeVisivel(dt);
 	}else if(pc.vx>=0){
 		machado.x = pc.x-9;
@@ -77,10 +79,7 @@ function desenha(){
 	pc.imune -= dt;
 
 	for(var i=0; i<NUM_ENEMIES; i++){
-		if(pc.vida == 0 || pc.moedas == FASES*24){
-			inimigos[i].move(-dt);
-		}
-		else{			
+		if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){			
 			inimigos[i].move(dt);
 			inimigos[i].persegue(pc);
 		}
@@ -114,8 +113,6 @@ function desenha(){
 	desenhaStatus();
 
 	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == false){
-		pc.move(-dt);
-		machado.moveSeVisivel(-dt);
 		statusJogo();
 	}
 
