@@ -28,7 +28,6 @@
 		<script>
 			var Totalmoedas = document.getElementById("tmoeda");
 			var zoom = 2;
-			var NUM_ENEMIES= 5;
 			var FASES = 5;
 			var moeda = new Array(FASES);
 			for (var i = 0; i < FASES; i++) {
@@ -37,6 +36,10 @@
 			var franguinho = new Array(FASES);
 			for (var i = 0; i < FASES; i++) {
   				franguinho[i] = new Array(2);
+			}
+			var inimigos = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				inimigos[i] = new Array(5);
 			}
 			var xis = [];
 			var yps = [];
@@ -94,10 +97,10 @@
 			var machado = new Machado();
 			geraMoedas();
 			geraFranguinhos();
-			var inimigos = [];
+			geraInimigos();
 			var inimigos1 = [];
-			var morcego = new Morcego();
 
+			var morcego = new Morcego();
 			morcego.x = 34*32;
 			morcego.y = 9*32;
 			morcego.posiciona();

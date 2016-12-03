@@ -4,22 +4,26 @@ function desenha(){
 	ctx.save();
 	ctx.scale(zoom,zoom);
 	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
-	for(var i=0; i<NUM_ENEMIES; i++){
-		if(pc.imune<=0 && pc.vida>0 && inimigos[i].colidiuCom(pc)){
+	for(var i=0; i<inimigos[questTutorial.level].length; i++){
+		if(pc.imune<=0 && pc.vida>0 && inimigos[questTutorial.level][i].colidiuCom(pc)){
 			pc.vy = 0;
 			pc.imune = 3;
 			pc.vida--;
-			pc.vx = inimigos[i].vx;
+			pc.vx = inimigos[questTutorial.level][i].vx;
 			pc.vy = -150;
 			soundLib.play("pcmorre");
 		}
-		if(machado.vang>0 && inimigos[i].colidiuCom(machado)){
+		if(machado.vang>0 && inimigos[questTutorial.level][i].colidiuCom(machado)){
 			machado.x = pc.x-9;
 			machado.y = pc.y-19;
 			machado.vang = 0;
-			inimigos[i].x = 20*32-Math.random()*32;
-			inimigos[i].y = 32;
-			inimigos[i].vy = 0;
+			do{
+				xi = 2+Math.floor(Math.random()*43);
+				yi = 2+Math.floor(Math.random()*13);
+			}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+			inimigos[questTutorial.level][i].x = (xi)*32+32*i;
+			inimigos[questTutorial.level][i].y = (yi+1)*32+32*i;
+			inimigos[questTutorial.level][i].vy = 0;
 			soundLib.play("monstromorre");
 		}
 	}
@@ -78,10 +82,10 @@ function desenha(){
 
 	pc.imune -= dt;
 
-	for(var i=0; i<NUM_ENEMIES; i++){
+	for(var i=0; i<inimigos[questTutorial.level].length; i++){
 		if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){			
-			inimigos[i].move(dt);
-			inimigos[i].persegue(pc);
+			inimigos[questTutorial.level][i].move(dt);
+			inimigos[questTutorial.level][i].persegue(pc);
 		}
 	}
 	desenhaMapa();
@@ -105,8 +109,8 @@ function desenha(){
 	}
 	pc.desenha(ctx);
 	ctx.globalAlpha=1.0;
-	for(var i=0; i<NUM_ENEMIES; i++){
-		inimigos[i].desenha(ctx);
+	for(var i=0; i<inimigos[questTutorial.level].length; i++){
+		inimigos[questTutorial.level][i].desenha(ctx);
 	}
 	ctx.restore();
 

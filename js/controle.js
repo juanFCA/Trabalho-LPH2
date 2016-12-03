@@ -13,12 +13,8 @@ function morcegoPersegue(){
 }
 
 function inimigosPersegue(){
-	for(var i=0; i<NUM_ENEMIES; i++){
-		inimigos[i] = new SpriteInMap();
-		inimigos[i].imgY = 1;
-		inimigos[i].x = 15*32-Math.random()*32+32*i;
-		inimigos[i].posiciona();
-		inimigos[i].persegue = function(pc){
+	for(var i=0; i<inimigos[questTutorial.level].length; i++){
+		inimigos[questTutorial.level][i].persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -35;
 			}
@@ -90,6 +86,8 @@ addEventListener('keydown', function(e){
 				questTutorial.level++;
 				geraMoedas();
 				geraFranguinhos();
+				geraInimigos();
+				inimigosPersegue();
 				pc.posiciona();
 				if(questTutorial.level == 3){
 					for(var a = 0; a < 90; a++){}
@@ -175,5 +173,21 @@ function geraFranguinhos(){
 		franguinho[questTutorial.level][i].y = (yi+1)*32;
 		franguinho[questTutorial.level][i].mx = xi;
 		franguinho[questTutorial.level][i].my = yi;
+	}
+}
+
+function geraInimigos(){
+	for(var i = 0; i<inimigos[questTutorial.level].length ; i++){
+		inimigos[questTutorial.level][i] = new SpriteInMap();
+		inimigos[questTutorial.level][i].imgY = 1;
+		inimigos[questTutorial.level][i].posiciona();
+		do{
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		inimigos[questTutorial.level][i].x = (xi)*32+32*i;
+		inimigos[questTutorial.level][i].y = (yi+1)*32+32*i;
+		inimigos[questTutorial.level][i].mx = xi;
+		inimigos[questTutorial.level][i].my = yi;
 	}
 }
