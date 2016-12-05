@@ -10,69 +10,80 @@
 	    <script src="js/sound.js" charset="utf-8"></script>
 	    <script src="js/desenha.js" charset="utf-8"></script>
 	    <script src="js/controle.js" charset="utf-8"></script>
-	    <link rel="stylesheet" href="css/style.css" />
+	    <link rel="stylesheet" href="css/style.css" /> 
 	</head>
 	<body>
 		<div id="corpojogo">
        		<div id="cabeçalho">
        			<div id="titulo">Trabalho de Hipermídia 2</div>
-       			<div class="painel" id="pvida"><canvas height="36" width="280" id="tvida"></div>
-            	<div class="painel" id="pnivel">Nível: <var type="number" id="pfase">1</var></div>
          	</div>
          	<div id="telajogo">
             	<canvas id="tela" width="680" height="320"></canvas>
         	</div>
         </div>
-		
+
 
 		<script>
-			var zoom = 0.5;
-			var NUM_ENEMIES= 5;
+			var Totalmoedas = document.getElementById("tmoeda");
+			var zoom = 2;
+			var NUM_ENEMIES= 7;
+			var FASES = 5;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
 			imgPc.src = 'img/pc.svg';
-			var imgWall = new Image();
-			imgWall.src = 'img/wall.svg';
-			var imgBlock = new Image();
-			imgBlock.src = 'img/block.svg';
+			var imgDoor = new Image();
+			imgDoor.src = 'img/door.svg';
+			var imgWall = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgWall[i] = new Image();
+			}
+			imgWall[0].src = 'img/wall.svg';
+			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.svg';
+			imgWall[2].src = 'img/IMG 32px/fase neve fundo.svg';
+			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.svg';
+			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.svg';
+			var imgBlock = [];
+			for (var i = 0 ; i < FASES; i++) {
+				imgBlock[i] = new Image();
+			}
+			imgBlock[0].src = 'img/block.svg';
+			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.svg';
+			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.svg';
+			imgBlock[3].src = 'img/IMG 32px/fase eletrica chao.svg';
+			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.svg';
+			var imgStart = new Image();
+			imgStart.src = 'img/start.png'
+			var imgOver = new Image();
+			imgOver.src = 'img/over.png'
+			var imgWin = new Image();
+			imgWin.src = 'img/win.png'
+			var imgVida = new Image();
+			imgVida.src = 'img/heart.png'
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");
-			soundLib.load("pcmorre","aud/giant1.wav");
+			soundLib.load("pcmorre","aud/hit.wav");
 			soundLib.load("pegamoeda","aud/coin.wav");
+			soundLib.load("shadowmorre","aud/mnstr5.wav");
+			soundLib.load("strongmorre","aud/giant4.wav");
 			var x = 0;
 			var fps = 60;
 			var dt = 1.0/fps;
-			var g = 300;
+			var g = 250;
 			var pc = new SpriteInMap();
 			pc.imune = 0;
+			pc.vida = 3;
+			pc.moedas = 0;
+			pc.posiciona();
+			pc.iniciou = false;
 			var machado = new Machado();
-			machado.x = 40;
-			machado.y = 40;
 			var moeda = new Moeda();
+			moeda.posiciona();
 			var inimigos = [];
-			for(var i=0; i<NUM_ENEMIES; i++){
-				inimigos[i] = new SpriteInMap();
-				inimigos[i].imgY = 1;
-				inimigos[i].x = 15*32-Math.random()*32+32*i;
-				inimigos[i].persegue = function(pc){
-					if(pc.x < this.x){
-						this.vx = -35;
-					}
-					else if (pc.x > this.x){
-						this.vx = +35;
-					}
-					else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-						this.vy -= 220;
-					}
-				};
-			}
-			
-			
+			inimigospersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();
-			controle();
 		</script>
 	</body>
 </html>

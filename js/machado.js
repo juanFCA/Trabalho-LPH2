@@ -18,7 +18,7 @@ Machado.prototype.desenha = function(ctx){
   this.angulo += this.vang*dt;
 }
 Machado.prototype.moveSeVisivel = function(dt){
-  if(this.x<0 || this.y < 0 || this.x>tela.width || this.y> tela.height){
+  if(this.x<0 || this.y < 0 || this.x>questTutorial.getColls || this.y> questTutorial.getRows){
     this.vang = 0;
     return;
   }
