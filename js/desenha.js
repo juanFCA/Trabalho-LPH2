@@ -112,6 +112,7 @@ function desenha(){
 	}
 	pc.desenha(ctx);
 	ctx.globalAlpha=1.0;
+
 	for(var i=0; i<inimigos[questTutorial.level].length; i++){
 		inimigos[questTutorial.level][i].desenha(ctx);
 	}
@@ -181,5 +182,4 @@ function statusJogo(){
 		ctx.fillStyle = "#000000";
   		ctx.fillText(" = "+pc.moedas,320,250);
 	}
-
 }

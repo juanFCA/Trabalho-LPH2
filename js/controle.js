@@ -28,21 +28,40 @@ function inimigosPersegue(){
 	}
 
 	for(var i=0; i<NUM_ENEMIES1; i++){
-   		inimigos1[i] = new SpriteInMap();
-    	inimigos1[i].imgY = 3;
-    	inimigos1[i].x = 10;
-    	inimigos1[i].persegue = function(pc){
-      		if(pc.x < this.x){
-        		this.vx = -35;
-      		}
-      		else if (pc.x > this.x){
-        		this.vx = +35;
-      		}
-      		else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-        		this.vy -= 220;
-      		}
-    	};
-	} 
+		if(i==0){//inimigo shadow
+			inimigos[i] = new SpriteInMap();
+			inimigos[i].imgY = 3;
+			inimigos[i].x = 15*32-Math.random()*32+32*i;
+			inimigos[i].posiciona();
+			inimigos[i].persegue = function(pc){
+				if(pc.x < this.x){
+					this.vx = -70;
+				}
+				else if (pc.x > this.x){
+					this.vx = +70;
+				}
+				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+					this.vy -= 220;
+				}
+			};
+		}else{//inimigo strong
+			inimigos[i] = new SpriteInMap();
+			inimigos[i].imgY = 4;
+			inimigos[i].x = 15*32-Math.random()*32+32*i;
+			inimigos[i].posiciona();
+			inimigos[i].persegue = function(pc){
+				if(pc.x < this.x){
+					this.vx = -15;
+				}
+				else if (pc.x > this.x){
+					this.vx = +15;
+				}
+				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+					this.vy -= 220;
+				}
+			};
+		}
+	}
 }
 
 
@@ -132,6 +151,7 @@ addEventListener('keyup', function(e){
 
 addEventListener('click', function(){
 	pc.iniciou = true;
+	tela.style.cursor = "none";
 });
 
 function findDoor(d){

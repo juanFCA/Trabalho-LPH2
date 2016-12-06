@@ -50,7 +50,7 @@
 			imgPc.src = 'img/pc.svg';
 			var imgDoor = new Image();
 			imgDoor.src = 'img/door.svg';
-			
+
 			var imgWall = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgWall[i] = new Image();
@@ -79,16 +79,20 @@
 			imgWin.src = 'img/win.png'
 			var imgVida = new Image();
 			imgVida.src = 'img/heart.png'
+
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");
-			soundLib.load("pcmorre","aud/giant1.wav");
+			soundLib.load("pcmorre","aud/hit.wav");
 			soundLib.load("pegamoeda","aud/coin.wav");
 			soundLib.load("food", "aud/food.wav")
+			soundLib.load("shadowmorre","aud/mnstr5.wav");
+			soundLib.load("strongmorre","aud/giant4.wav");
+
 			var x = 0;
 			var fps = 60;
 			var dt = 1.0/fps;
-			var g = 300;
+			var g = 250;
 			var pc = new SpriteInMap();
 			pc.imune = 0;
 			pc.vida = 3;
@@ -96,6 +100,7 @@
 			pc.posiciona();
 			pc.iniciou = false;
 			var machado = new Machado();
+
 			geraMoedas();
 			geraFranguinhos();
 			geraInimigos();
