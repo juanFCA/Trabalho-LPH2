@@ -41,9 +41,12 @@
 			for (var i = 0; i < FASES; i++) {
   				inimigos[i] = new Array(5);
 			}
+			var inimigos1 = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				inimigos1[i] = new Array(2);
+			}
 			var xis = [];
 			var yps = [];
-			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
@@ -104,7 +107,6 @@
 			geraMoedas();
 			geraFranguinhos();
 			geraInimigos();
-			var inimigos1 = [];
 
 			var morcego = new Morcego();
 			morcego.x = 34*32;

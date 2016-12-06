@@ -27,13 +27,9 @@ function inimigosPersegue(){
 		};
 	}
 
-	for(var i=0; i<NUM_ENEMIES1; i++){
+	for(var i=0; i<inimigos1[questTutorial.level].length; i++){
 		if(i==0){//inimigo shadow
-			inimigos[i] = new SpriteInMap();
-			inimigos[i].imgY = 3;
-			inimigos[i].x = 15*32-Math.random()*32+32*i;
-			inimigos[i].posiciona();
-			inimigos[i].persegue = function(pc){
+			inimigos1[questTutorial.level][i].persegue = function(pc){
 				if(pc.x < this.x){
 					this.vx = -70;
 				}
@@ -44,12 +40,8 @@ function inimigosPersegue(){
 					this.vy -= 220;
 				}
 			};
-		}else{//inimigo strong
-			inimigos[i] = new SpriteInMap();
-			inimigos[i].imgY = 4;
-			inimigos[i].x = 15*32-Math.random()*32+32*i;
-			inimigos[i].posiciona();
-			inimigos[i].persegue = function(pc){
+		} else{//inimigo strong
+			inimigos1[questTutorial.level][i].persegue = function(pc){
 				if(pc.x < this.x){
 					this.vx = -15;
 				}
@@ -61,7 +53,7 @@ function inimigosPersegue(){
 				}
 			};
 		}
-	}
+	} 
 }
 
 
@@ -207,5 +199,22 @@ function geraInimigos(){
 		inimigos[questTutorial.level][i].y = (yi+1)*32;
 		inimigos[questTutorial.level][i].mx = xi;
 		inimigos[questTutorial.level][i].my = yi;
+	}
+
+	for(var i = 0; i<inimigos1[questTutorial.level].length ; i++){
+		inimigos1[questTutorial.level][i] = new SpriteInMap();
+		if(i==0){
+			inimigos1[questTutorial.level][i].imgY = 3;
+		} else{
+			inimigos1[questTutorial.level][i].imgY = 5;
+		}
+		do{
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		inimigos1[questTutorial.level][i].x = (xi)*32;
+		inimigos1[questTutorial.level][i].y = (yi+1)*32;
+		inimigos1[questTutorial.level][i].mx = xi;
+		inimigos1[questTutorial.level][i].my = yi;
 	}
 }

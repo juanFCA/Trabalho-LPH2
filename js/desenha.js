@@ -30,6 +30,30 @@ function desenha(){
 			soundLib.play("monstromorre");
 		}
 	}
+
+	for(var i=0; i<inimigos1[questTutorial.level].length; i++){
+		if(pc.imune<=0 && pc.vida>0 && inimigos1[questTutorial.level][i].colidiuCom(pc)){
+			pc.vy = 0;
+			pc.imune = 3;
+			pc.vida--;
+			pc.vx = inimigos[questTutorial.level][i].vx;
+			pc.vy = -150;
+			soundLib.play("pcmorre");
+		}
+		if(machado.vang>0 && inimigos1[questTutorial.level][i].colidiuCom(machado)){
+			machado.x = pc.x-9;
+			machado.y = pc.y-19;
+			machado.vang = 0;
+			inimigos1[questTutorial.level].splice(i,1);
+			if(i==0){
+				soundLib.play("shadowmorre");
+			}
+			else{	
+				soundLib.play("strongmorre");
+			}
+		}
+	}
+
 	for(var i=0; i<moeda[questTutorial.level].length; i++){
 		if(moeda[questTutorial.level][i].colidiuCom(pc)){
 			moeda[questTutorial.level].splice(i,1);
@@ -91,6 +115,13 @@ function desenha(){
 			inimigos[questTutorial.level][i].move(dt);
 		}
 	}
+	for(var i=0; i<inimigos1[questTutorial.level].length; i++){
+		inimigos1[questTutorial.level][i].persegue(pc);
+		if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){			
+			inimigos1[questTutorial.level][i].move(dt);
+		}
+	}
+
 	desenhaMapa();
 	machado.desenha(ctx);
 	morcego.desenha(ctx);
@@ -116,10 +147,13 @@ function desenha(){
 	for(var i=0; i<inimigos[questTutorial.level].length; i++){
 		inimigos[questTutorial.level][i].desenha(ctx);
 	}
+	for(var i=0; i<inimigos1[questTutorial.level].length; i++){
+		inimigos1[questTutorial.level][i].desenha(ctx);
+	}
+
 	ctx.restore();
 
 	desenhaStatus();
-
 	if(pc.vida == 0 || pc.moedas == FASES*24 || pc.iniciou == false){
 		statusJogo();
 	}
