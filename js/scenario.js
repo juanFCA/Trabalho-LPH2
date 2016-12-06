@@ -236,7 +236,7 @@ var questTutorial = new Scenario();
 var SIZE = 5;
 var tutorial = [];
 
-for (var i=0; i<=SIZE; i++) {
+for (var i=0; i<SIZE; i++) {
   tutorial[i] = new Map();
   questTutorial.setMap(i, tutorial[i]);
 }

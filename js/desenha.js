@@ -4,6 +4,7 @@ function desenha(){
 	ctx.save();
 	ctx.scale(zoom,zoom);
 	ctx.translate(-pc.x+tela.width/4,-pc.y+tela.height/4);
+	inimigosPersegue();
 	for(var i=0; i<inimigos[questTutorial.level].length; i++){
 		if(pc.imune<=0 && pc.vida>0 && inimigos[questTutorial.level][i].colidiuCom(pc)){
 			pc.vy = 0;
@@ -21,8 +22,10 @@ function desenha(){
 				xi = 2+Math.floor(Math.random()*43);
 				yi = 2+Math.floor(Math.random()*13);
 			}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
-			inimigos[questTutorial.level][i].x = (xi)*32+32*i;
-			inimigos[questTutorial.level][i].y = (yi+1)*32+32*i;
+			inimigos[questTutorial.level][i].x = (xi)*32;
+			inimigos[questTutorial.level][i].y = (yi)*32;
+			inimigos[questTutorial.level][i].mx = xi;
+			inimigos[questTutorial.level][i].my = yi;
 			inimigos[questTutorial.level][i].vy = 0;
 			soundLib.play("monstromorre");
 		}
@@ -83,9 +86,9 @@ function desenha(){
 	pc.imune -= dt;
 
 	for(var i=0; i<inimigos[questTutorial.level].length; i++){
+		inimigos[questTutorial.level][i].persegue(pc);
 		if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){			
 			inimigos[questTutorial.level][i].move(dt);
-			inimigos[questTutorial.level][i].persegue(pc);
 		}
 	}
 	desenhaMapa();

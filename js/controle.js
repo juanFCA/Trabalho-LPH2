@@ -78,18 +78,17 @@ addEventListener('keydown', function(e){
 				e.preventDefault();
 			break;
 		case 40:
-			if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2 && questTutorial.level == 3){
+			if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2 && questTutorial.level == FASES-1){
 				questTutorial.level--;
-				for(var a = 0; a < 90; a++){}
+				pc.posiciona();
 				findDoor(2);
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
 				questTutorial.level++;
 				geraMoedas();
 				geraFranguinhos();
 				geraInimigos();
-				inimigosPersegue();
 				pc.posiciona();
-				if(questTutorial.level == 3){
+				if(questTutorial.level == FASES-1){
 					for(var a = 0; a < 90; a++){}
 					findDoor(2);
 				}else{
@@ -180,13 +179,12 @@ function geraInimigos(){
 	for(var i = 0; i<inimigos[questTutorial.level].length ; i++){
 		inimigos[questTutorial.level][i] = new SpriteInMap();
 		inimigos[questTutorial.level][i].imgY = 1;
-		inimigos[questTutorial.level][i].posiciona();
 		do{
-			xi = 2+Math.floor(Math.random()*43);
-			yi = 2+Math.floor(Math.random()*13);
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
 		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
-		inimigos[questTutorial.level][i].x = (xi)*32+32*i;
-		inimigos[questTutorial.level][i].y = (yi+1)*32+32*i;
+		inimigos[questTutorial.level][i].x = (xi)*32;
+		inimigos[questTutorial.level][i].y = (yi+1)*32;
 		inimigos[questTutorial.level][i].mx = xi;
 		inimigos[questTutorial.level][i].my = yi;
 	}
