@@ -151,7 +151,7 @@ addEventListener('keyup', function(e){
 
 addEventListener('click', function(){
 	pc.iniciou = true;
-	tela.style.cursor = "none";
+	//tela.style.cursor = "none";
 });
 
 function findDoor(d){

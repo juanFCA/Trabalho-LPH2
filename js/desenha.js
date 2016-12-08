@@ -15,8 +15,13 @@ function desenha(){
 			soundLib.play("pcmorre");
 		}
 		if(machado.vang>0 && inimigos[questTutorial.level][i].colidiuCom(machado)){
+			if(pc.dir==1){
 			machado.x = pc.x-9;
 			machado.y = pc.y-19;
+			}else{
+				machado.x = pc.x+9;
+				machado.y = pc.y-19;
+			}
 			machado.vang = 0;
 			do{
 				xi = 2+Math.floor(Math.random()*43);
@@ -41,8 +46,13 @@ function desenha(){
 			soundLib.play("pcmorre");
 		}
 		if(machado.vang>0 && inimigos1[questTutorial.level][i].colidiuCom(machado)){
-			machado.x = pc.x-9;
-			machado.y = pc.y-19;
+			if(pc.dir==1){
+				machado.x = pc.x-9;
+				machado.y = pc.y-19;
+			}else{
+				machado.x = pc.x+9;
+				machado.y = pc.y-19;
+			}
 			machado.vang = 0;
 			inimigos1[questTutorial.level].splice(i,1);
 			if(i==0){
@@ -79,8 +89,13 @@ function desenha(){
 	}	
 
 	if(machado.vang>0 && morcego.colidiuCom(machado)){
-		machado.x = pc.x-9;
-		machado.y = pc.y-19;
+		if(pc.dir==1){
+			machado.x = pc.x-9;
+			machado.y = pc.y-19;
+		}else{
+			machado.x = pc.x+9;
+			machado.y = pc.y-19;
+		}
 		machado.vang = 0;
 		morcego.x = 20*32-Math.random()*32;
 		morcego.y = 32;
@@ -91,14 +106,24 @@ function desenha(){
 	if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){
 		if(machado.vang>0){
 			machado.moveSeVisivel(dt);
-		}else if(pc.vx>=0){
+		}else if (pc.imgX == 6 && pc.dir==1){
+			machado.x = pc.x-9;
+			machado.y = pc.y-20;
+		}else if(pc.imgX == 6 && pc.dir==-1){
+			machado.x = pc.x+9;
+			machado.y = pc.y-20;
+		}else if (pc.imgX == 7 && pc.dir==1){
+			machado.x = pc.x-9;
+			machado.y = pc.y-21;
+		}else if(pc.imgX == 7 && pc.dir==-1){
+			machado.x = pc.x+9;
+			machado.y = pc.y-21;
+		}else if(pc.dir==1){
 			machado.x = pc.x-9;
 			machado.y = pc.y-19;
-			machado.angulo = -30;
 		}else{
 			machado.x = pc.x+9;
 			machado.y = pc.y-19;
-			machado.angulo = -30;
 		}
 		pc.move(dt);
 		morcego.move(dt);

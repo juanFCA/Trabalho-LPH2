@@ -16,7 +16,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="fase neve fundo.svg">
+   sodipodi:docname="fase neve fundo.svg"
+   inkscape:export-filename="/home/juan/Git-GitHub Projetos/Trabalho-LPH2/img/IMG 32px/fase neve fundo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -48,15 +51,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="15.839192"
-     inkscape:cx="15.509058"
+     inkscape:cx="9.2623593"
      inkscape:cy="22.028664"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1360"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1551"
+     inkscape:window-height="876"
+     inkscape:window-x="49"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      units="px">
     <inkscape:grid
@@ -84,7 +87,7 @@
      transform="translate(0,-1020.3622)">
     <path
        style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#78c200;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -0.12627289,1020.3478 32.44103189,0 0,32.3378 -32.44103189,0 z"
+       d="m -0.12627287,1020.2216 32.69356987,0 0,32.464 -32.69356987,0 z"
        id="rect4457"
        inkscape:connector-curvature="0" />
     <ellipse

@@ -71,7 +71,7 @@
 			imgBlock[0].src = 'img/block.png';
 			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.png';
 			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.png';
-			imgBlock[3].src = 'img/IMG 32px/fase eletrica chão.png';
+			imgBlock[3].src = 'img/IMG 32px/fase eletrica chao.png';
 			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.png';
 
 			var imgStart = new Image();
@@ -105,15 +105,15 @@
 			pc.iniciou = false;
 			var machado = new Machado();
 
-			geraMoedas();
-			geraFranguinhos();
-			geraInimigos();
-
 			var morcego = new Morcego();
 			morcego.x = 34*32;
 			morcego.y = 9*32;
 			morcego.posiciona();
 
+			statusJogo();
+			geraMoedas();
+			geraFranguinhos();
+			geraInimigos();
 			inimigosPersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();
