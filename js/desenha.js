@@ -89,22 +89,21 @@ function desenha(){
 	}
 
 	if(pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true){
+		if(machado.vang>0){
+			machado.moveSeVisivel(dt);
+		}else if(pc.vx>=0){
+			machado.x = pc.x-9;
+			machado.y = pc.y-19;
+			machado.angulo = -30;
+		}else{
+			machado.x = pc.x+9;
+			machado.y = pc.y-19;
+			machado.angulo = -30;
+		}
 		pc.move(dt);
 		morcego.move(dt);
 		morcegoPersegue();
 		morcego.persegue(pc);
-	}
-
-	if(machado.vang>0 && (pc.vida != 0 || pc.moedas != FASES*24 || pc.iniciou == true)){
-		machado.moveSeVisivel(dt);
-	}else if(pc.vx>=0){
-		machado.x = pc.x-9;
-		machado.y = pc.y-19;
-		machado.angulo = -30;
-	}else{
-		machado.x = pc.x+9;
-		machado.y = pc.y-19;
-		machado.angulo = -30;
 	}
 
 	pc.imune -= dt;

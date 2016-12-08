@@ -2,9 +2,11 @@ function morcegoPersegue(){
 	morcego.persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -50;
+				this.dir = -1;
 			}
 			else if (pc.x > this.x){
 				this.vx = +50;
+				this.dir = 1;
 			}
 			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
 				this.vy += 270;
@@ -17,9 +19,11 @@ function inimigosPersegue(){
 		inimigos[questTutorial.level][i].persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -35;
+				this.dir = -1;
 			}
 			else if (pc.x > this.x){
 				this.vx = +35;
+				this.dir = 1;
 			}
 			if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
 				this.vy -= 220;
@@ -32,9 +36,11 @@ function inimigosPersegue(){
 			inimigos1[questTutorial.level][i].persegue = function(pc){
 				if(pc.x < this.x){
 					this.vx = -70;
+					this.dir = -1;
 				}
 				else if (pc.x > this.x){
 					this.vx = +70;
+					this.dir = 1;
 				}
 				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
 					this.vy -= 220;
@@ -44,9 +50,11 @@ function inimigosPersegue(){
 			inimigos1[questTutorial.level][i].persegue = function(pc){
 				if(pc.x < this.x){
 					this.vx = -15;
+					this.dir = -1;
 				}
 				else if (pc.x > this.x){
 					this.vx = +15;
+					this.dir = 1;
 				}
 				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
 					this.vy -= 220;
