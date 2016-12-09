@@ -15,7 +15,7 @@ Machado.prototype.desenha = function(ctx){
   ctx.scale(1,1);
   if(pc.skill == true && pc.vy >= 0){
     ctx.drawImage(imgPc,this.imgX,this.imgY*32,32,32,
-      -26,0,32,32);
+      -16,0,32,32);
   }else{
     ctx.drawImage(imgPc,this.imgX,this.imgY*32,32,32,
       -16,-16,32,32);

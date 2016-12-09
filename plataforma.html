@@ -8,6 +8,7 @@
 		<script src="js/morcego.js" charset="utf-8"></script>
 		<script src="js/machado.js" charset="utf-8"></script>
 		<script src="js/moeda.js" charset="utf-8"></script>
+		<script src="js/frango.js" charset="utf-8"></script>
 	    <script src="js/sound.js" charset="utf-8"></script>
 	    <script src="js/desenha.js" charset="utf-8"></script>
 	    <script src="js/controle.js" charset="utf-8"></script>
@@ -27,36 +28,52 @@
 		<script>
 			var Totalmoedas = document.getElementById("tmoeda");
 			var zoom = 2;
-			var NUM_ENEMIES= 5;
 			var FASES = 5;
-			var moeda = new Array(24);
+			var moeda = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				moeda[i] = new Array(24);
+			}
+			var franguinho = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				franguinho[i] = new Array(2);
+			}
+			var inimigos = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				inimigos[i] = new Array(5);
+			}
+			var inimigos1 = new Array(FASES);
+			for (var i = 0; i < FASES; i++) {
+  				inimigos1[i] = new Array(2);
+			}
 			var xis = [];
 			var yps = [];
-			var NUM_ENEMIES1 = Math.floor(Math.random()*10)+1;
 			var tela = document.getElementById('tela');
 			var ctx = tela.getContext('2d');
 			var imgPc = new Image();
 			imgPc.src = 'img/pc.svg';
 			var imgDoor = new Image();
 			imgDoor.src = 'img/door.svg';
+
 			var imgWall = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgWall[i] = new Image();
 			}
-			imgWall[0].src = 'img/wall.svg';
-			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.svg';
-			imgWall[2].src = 'img/IMG 32px/fase neve fundo.svg';
-			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.svg';
-			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.svg';
+			imgWall[0].src = 'img/wall.png';
+			imgWall[1].src = 'img/IMG 32px/fase floresta fundo.png';
+			imgWall[2].src = 'img/IMG 32px/fase neve fundo.png';
+			imgWall[3].src = 'img/IMG 32px/fase eletrica fundo.png';
+			imgWall[4].src = 'img/IMG 32px/fase caverna fundo.png';
+			
 			var imgBlock = [];
 			for (var i = 0 ; i < FASES; i++) {
 				imgBlock[i] = new Image();
 			}
-			imgBlock[0].src = 'img/block.svg';
-			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.svg';
-			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.svg';
-			imgBlock[3].src = 'img/IMG 32px/fase eletrica chão.svg';
-			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.svg';
+			imgBlock[0].src = 'img/block.png';
+			imgBlock[1].src = 'img/IMG 32px/fase floresta bloco de terra.png';
+			imgBlock[2].src = 'img/IMG 32px/fase neve bloco de gelo.png';
+			imgBlock[3].src = 'img/IMG 32px/fase eletrica chao.png';
+			imgBlock[4].src = 'img/IMG 32px/fase caverna bloco de pedra.png';
+
 			var imgStart = new Image();
 			imgStart.src = 'img/start.png'
 			var imgOver = new Image();
@@ -65,11 +82,16 @@
 			imgWin.src = 'img/win.png'
 			var imgVida = new Image();
 			imgVida.src = 'img/heart.png'
+
 			var soundLib = new SoundLib();
 			soundLib.load("swing","aud/swing.wav");
 			soundLib.load("monstromorre","aud/mnstr1.wav");
-			soundLib.load("pcmorre","aud/giant1.wav");
+			soundLib.load("pcmorre","aud/hit.wav");
 			soundLib.load("pegamoeda","aud/coin.wav");
+			soundLib.load("food", "aud/food.wav")
+			soundLib.load("shadowmorre","aud/mnstr5.wav");
+			soundLib.load("strongmorre","aud/giant4.wav");
+
 			var x = 0;
 			var fps = 60;
 			var dt = 1.0/fps;
@@ -77,17 +99,21 @@
 			var pc = new SpriteInMap();
 			pc.imune = 0;
 			pc.vida = 3;
+			pc.player = true;
 			pc.moedas = 0;
 			pc.posiciona();
 			pc.iniciou = false;
 			var machado = new Machado();
-			geraMoedas();
-			var inimigos = [];
-			var inimigos1 = [];
+
 			var morcego = new Morcego();
 			morcego.x = 34*32;
 			morcego.y = 9*32;
 			morcego.posiciona();
+
+			statusJogo();
+			geraMoedas();
+			geraFranguinhos();
+			geraInimigos();
 			inimigosPersegue();
 			setInterval(desenha, 1000*dt);
 			desenha();

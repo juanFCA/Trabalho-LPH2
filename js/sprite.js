@@ -14,38 +14,47 @@ function SpriteInMap(){
   this.skill = false;
   this.stamina = 5;
   this.dir = 1;
+  this.player = false;
 }
 SpriteInMap.prototype.desenha = function(ctx){
-      ctx.save();
-      ctx.translate(this.x,this.y);
-      if(this.skill == true && this.vy >= 0){
-        if(this.dir>=0){
-          ctx.scale(1,-1);
-        }else{
-          ctx.scale(-1,-1);
-        }
-        ctx.drawImage(imgPc,
-          (this.imgX+Math.floor(this.iddle))*32,
-          this.imgY*32,32,32,
-          -16,-12,32,32);
+    ctx.save();
+    ctx.translate(this.x,this.y);
+    if(this.skill == true && this.vy >= 0){
+      if(this.dir>=0){
+        ctx.scale(1,-1);
       }else{
-        if(this.dir>=0){
-          ctx.scale(1,1);
-        }else{
-          ctx.scale(-1,1);
-        }
-        ctx.drawImage(imgPc,
-          (this.imgX+Math.floor(this.iddle))*32,
-          this.imgY*32,32,32,
-          -16,-32,32,32);
+        ctx.scale(-1,-1);
       }
-      ctx.restore();
+      ctx.drawImage(imgPc,
+        (this.imgX+Math.floor(this.iddle))*32,
+        this.imgY*32,32,32,
+        -16,-12,32,32);
+    }else{
+      if(this.dir>=0){
+        ctx.scale(1,1);
+      }else{
+        ctx.scale(-1,1);
+      }
+      ctx.drawImage(imgPc,
+        (this.imgX+Math.floor(this.iddle))*32,
+        this.imgY*32,32,32,
+        -16,-32,32,32);
+    }
+    ctx.restore();
     if(this.debug){
       this.desenhaDebug(ctx);
     }
     if(this.vy!=0){
       this.imgX = 2;
-    }else{
+    }
+    if (this.vx!=0 && this.player==true) {
+      if(this.mx%2==0){
+        this.imgX = 6;
+      }else{
+        this.imgX = 7;
+      }
+    }
+    else{
       this.imgX = 0;
     }
   };
@@ -57,7 +66,6 @@ SpriteInMap.prototype.move = function(dt){
       this.iddle = 0;
     }
    
- 
     this.vx = this.vx + this.ax*dt;
     if(this.skill == true && this.stamina > 0){
       this.vy = this.vy + this.ay*dt + (-1)*g*dt;

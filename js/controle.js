@@ -2,9 +2,11 @@ function morcegoPersegue(){
 	morcego.persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -50;
+				this.dir = -1;
 			}
 			else if (pc.x > this.x){
 				this.vx = +50;
+				this.dir = 1;
 			}
 			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
 				this.vy += 270;
@@ -13,17 +15,15 @@ function morcegoPersegue(){
 }
 
 function inimigosPersegue(){
-	for(var i=0; i<NUM_ENEMIES; i++){
-		inimigos[i] = new SpriteInMap();
-		inimigos[i].imgY = 1;
-		inimigos[i].x = 15*32-Math.random()*32+32*i;
-		inimigos[i].posiciona();
-		inimigos[i].persegue = function(pc){
+	for(var i=0; i<inimigos[questTutorial.level].length; i++){
+		inimigos[questTutorial.level][i].persegue = function(pc){
 			if(pc.x < this.x){
 				this.vx = -35;
+				this.dir = -1;
 			}
 			else if (pc.x > this.x){
 				this.vx = +35;
+				this.dir = 1;
 			}
 			if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
 				this.vy -= 220;
@@ -31,21 +31,36 @@ function inimigosPersegue(){
 		};
 	}
 
-	for(var i=0; i<NUM_ENEMIES1; i++){
-   		inimigos1[i] = new SpriteInMap();
-    	inimigos1[i].imgY = 3;
-    	inimigos1[i].x = 10;
-    	inimigos1[i].persegue = function(pc){
-      		if(pc.x < this.x){
-        		this.vx = -35;
-      		}
-      		else if (pc.x > this.x){
-        		this.vx = +35;
-      		}
-      		else if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
-        		this.vy -= 220;
-      		}
-    	};
+	for(var i=0; i<inimigos1[questTutorial.level].length; i++){
+		if(i==0){//inimigo shadow
+			inimigos1[questTutorial.level][i].persegue = function(pc){
+				if(pc.x < this.x){
+					this.vx = -70;
+					this.dir = -1;
+				}
+				else if (pc.x > this.x){
+					this.vx = +70;
+					this.dir = 1;
+				}
+				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+					this.vy -= 220;
+				}
+			};
+		} else{//inimigo strong
+			inimigos1[questTutorial.level][i].persegue = function(pc){
+				if(pc.x < this.x){
+					this.vx = -15;
+					this.dir = -1;
+				}
+				else if (pc.x > this.x){
+					this.vx = +15;
+					this.dir = 1;
+				}
+				if(pc.y<this.y && questTutorial.getCell(this.my+1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my-1,this.mx)==0){
+					this.vy -= 220;
+				}
+			};
+		}
 	} 
 }
 
@@ -82,13 +97,17 @@ addEventListener('keydown', function(e){
 				e.preventDefault();
 			break;
 		case 40:
-			if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2 && questTutorial.level == 3){
+			if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2 && questTutorial.level == FASES-1){
 				questTutorial.level--;
-				for(var a = 0; a < 90; a++){}
+				pc.posiciona();
 				findDoor(2);
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
 				questTutorial.level++;
-				if(questTutorial.level == 3){
+				geraMoedas();
+				geraFranguinhos();
+				geraInimigos();
+				pc.posiciona();
+				if(questTutorial.level == FASES-1){
 					for(var a = 0; a < 90; a++){}
 					findDoor(2);
 				}else{
@@ -132,6 +151,7 @@ addEventListener('keyup', function(e){
 
 addEventListener('click', function(){
 	pc.iniciou = true;
+	//tela.style.cursor = "none";
 });
 
 function findDoor(d){
@@ -148,17 +168,61 @@ function findDoor(d){
 }
 
 function geraMoedas(){
-	for(var i = 0; i<moeda.length ; i++){
-		moeda[i] = new Moeda();
-
+	for(var i = 0; i<moeda[questTutorial.level].length ; i++){
+		moeda[questTutorial.level][i] = new Moeda();
 		do{
 			xi = 2+Math.floor(Math.random()*43);
 			yi = 2+Math.floor(Math.random()*13);
 		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
-		moeda[i].x = (xi)*32;
-		moeda[i].y = (yi+1)*32;
-		moeda[i].mx = xi;
-		moeda[i].my = yi;
-		//moeda[i].posiciona();	
+		moeda[questTutorial.level][i].x = (xi)*32;
+		moeda[questTutorial.level][i].y = (yi+1)*32;
+		moeda[questTutorial.level][i].mx = xi;
+		moeda[questTutorial.level][i].my = yi;
+	}
+}
+
+function geraFranguinhos(){
+	for(var i = 0; i<franguinho[questTutorial.level].length ; i++){
+		franguinho[questTutorial.level][i] = new Frango();
+		do{
+			xi = 2+Math.floor(Math.random()*43);
+			yi = 2+Math.floor(Math.random()*13);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		franguinho[questTutorial.level][i].x = (xi)*32;
+		franguinho[questTutorial.level][i].y = (yi+1)*32;
+		franguinho[questTutorial.level][i].mx = xi;
+		franguinho[questTutorial.level][i].my = yi;
+	}
+}
+
+function geraInimigos(){
+	for(var i = 0; i<inimigos[questTutorial.level].length ; i++){
+		inimigos[questTutorial.level][i] = new SpriteInMap();
+		inimigos[questTutorial.level][i].imgY = 1;
+		do{
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		inimigos[questTutorial.level][i].x = (xi)*32;
+		inimigos[questTutorial.level][i].y = (yi+1)*32;
+		inimigos[questTutorial.level][i].mx = xi;
+		inimigos[questTutorial.level][i].my = yi;
+	}
+
+	for(var i = 0; i<inimigos1[questTutorial.level].length ; i++){
+		inimigos1[questTutorial.level][i] = new SpriteInMap();
+		if(i==0){
+			inimigos1[questTutorial.level][i].imgY = 3;
+		} else{
+			inimigos1[questTutorial.level][i].imgY = 5;
+		}
+		do{
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		inimigos1[questTutorial.level][i].x = (xi)*32;
+		inimigos1[questTutorial.level][i].y = (yi+1)*32;
+		inimigos1[questTutorial.level][i].mx = xi;
+		inimigos1[questTutorial.level][i].my = yi;
 	}
 }
