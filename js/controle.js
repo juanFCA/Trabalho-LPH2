@@ -1,19 +1,3 @@
-function morcegoPersegue(){
-	morcego.persegue = function(pc){
-			if(pc.x < this.x){
-				this.vx = -50;
-				this.dir = -1;
-			}
-			else if (pc.x > this.x){
-				this.vx = +50;
-				this.dir = 1;
-			}
-			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
-				this.vy += 270;
-			}
-		};
-}
-
 function inimigosPersegue(){
 	for(var i=0; i<inimigos[questTutorial.level].length; i++){
 		inimigos[questTutorial.level][i].persegue = function(pc){
@@ -62,6 +46,20 @@ function inimigosPersegue(){
 			};
 		}
 	} 
+
+	morcego.persegue = function(pc){
+			if(pc.x < this.x){
+				this.vx = -50;
+				this.dir = -1;
+			}
+			else if (pc.x > this.x){
+				this.vx = +50;
+				this.dir = 1;
+			}
+			if(pc.y>this.y && questTutorial.getCell(this.my-1,this.mx)==1 && this.vy == 0 && questTutorial.getCell(this.my+1,this.mx)==0){
+				this.vy += 270;
+			}
+		};
 }
 
 
@@ -101,6 +99,7 @@ addEventListener('keydown', function(e){
 				questTutorial.level--;
 				pc.posiciona();
 				findDoor(2);
+				soundLib.play("porta");
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
 				questTutorial.level++;
 				geraMoedas();
@@ -110,14 +109,17 @@ addEventListener('keydown', function(e){
 				if(questTutorial.level == FASES-1){
 					for(var a = 0; a < 90; a++){}
 					findDoor(2);
+					soundLib.play("porta");
 				}else{
 					for(var a = 0; a < 90; a++){}
 					findDoor(3);
+					soundLib.play("porta");
 				}
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 3){
 				questTutorial.level--;
 				for(var a = 0; a < 90; a++){}
 				findDoor(2);
+				soundLib.play("porta");
 			}
 			break;
 		case 17:
@@ -151,7 +153,6 @@ addEventListener('keyup', function(e){
 
 addEventListener('click', function(){
 	pc.iniciou = true;
-	//tela.style.cursor = "none";
 });
 
 function findDoor(d){
@@ -224,5 +225,15 @@ function geraInimigos(){
 		inimigos1[questTutorial.level][i].y = (yi+1)*32;
 		inimigos1[questTutorial.level][i].mx = xi;
 		inimigos1[questTutorial.level][i].my = yi;
+	}
+	if(morcego){
+		do{
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		morcego.x = (xi)*32;
+		morcego.y = (yi+1)*32;
+		morcego.mx = xi;
+		morcego.my = yi;
 	}
 }

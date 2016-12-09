@@ -78,6 +78,10 @@ function desenha(){
 			pc.stamina+=2;
 			soundLib.play("food");
 		}
+		if(franguinho[questTutorial.level].length==0){
+			pc.vida +=1;
+			soundLib.play("ganhaVida");
+		}
 	}
 
 	if(morcego.colidiuCom(pc) && pc.stamina > 1){
@@ -97,9 +101,14 @@ function desenha(){
 			machado.y = pc.y-19;
 		}
 		machado.vang = 0;
-		morcego.x = 20*32-Math.random()*32;
-		morcego.y = 32;
-		morcego.vy = 0;
+		do{
+			xi = 3+Math.floor(Math.random()*41);
+			yi = 3+Math.floor(Math.random()*11);
+		}while(questTutorial.getCell(yi,xi)!=0 || questTutorial.getCell(yi+1,xi)==0);
+		morcego.x = (xi)*32;
+		morcego.y = (yi+1)*32;
+		morcego.mx = xi;
+		morcego.my = yi;
 		soundLib.play("monstromorre");
 	}
 
@@ -127,7 +136,6 @@ function desenha(){
 		}
 		pc.move(dt);
 		morcego.move(dt);
-		morcegoPersegue();
 		morcego.persegue(pc);
 	}
 
@@ -147,7 +155,9 @@ function desenha(){
 	}
 
 	desenhaMapa();
-	machado.desenha(ctx);
+	if(pc.skill == false){
+		machado.desenha(ctx);
+	}
 	morcego.desenha(ctx);
 
 	for(var i=0 ; i < moeda[questTutorial.level].length ; i++){

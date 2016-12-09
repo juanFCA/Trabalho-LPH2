@@ -91,6 +91,8 @@
 			soundLib.load("food", "aud/food.wav")
 			soundLib.load("shadowmorre","aud/mnstr5.wav");
 			soundLib.load("strongmorre","aud/giant4.wav");
+			soundLib.load("ganhaVida","aud/bubblegurggle.wav");
+			soundLib.load("porta","aud/cardooropen.wav");
 
 			var x = 0;
 			var fps = 60;
@@ -104,11 +106,7 @@
 			pc.posiciona();
 			pc.iniciou = false;
 			var machado = new Machado();
-
 			var morcego = new Morcego();
-			morcego.x = 34*32;
-			morcego.y = 9*32;
-			morcego.posiciona();
 
 			statusJogo();
 			geraMoedas();
