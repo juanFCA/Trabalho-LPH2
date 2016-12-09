@@ -60,6 +60,7 @@ function inimigosPersegue(){
 				this.vy += 270;
 			}
 		};
+	}
 }
 
 
@@ -97,7 +98,6 @@ addEventListener('keydown', function(e){
 		case 40:
 			if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2 && questTutorial.level == FASES-1){
 				questTutorial.level--;
-				pc.posiciona();
 				findDoor(2);
 				soundLib.play("porta");
 			}else if(questTutorial.getCell(Math.floor(pc.y/32),Math.floor(pc.x/32)) == 2){
@@ -105,7 +105,6 @@ addEventListener('keydown', function(e){
 				geraMoedas();
 				geraFranguinhos();
 				geraInimigos();
-				pc.posiciona();
 				if(questTutorial.level == FASES-1){
 					for(var a = 0; a < 90; a++){}
 					findDoor(2);
@@ -153,7 +152,7 @@ addEventListener('keyup', function(e){
 			break;
 		case 17:
 			pc.skill = false;
-			if(pc.stamina >= 1) pc.stamina--;			
+			if(pc.stamina >= 1) pc.stamina--;
 			e.preventDefault();
 			break;
 	}
@@ -167,8 +166,8 @@ addEventListener('click', function(){
 function findDoor(d){
 	door = d;
 
-	for(var linhas = 1; linhas < 16; linhas++){
-		for(var colunas = 1; colunas < 44; colunas++){
+	for(var linhas = 16; linhas > 1; linhas--){
+		for(var colunas = 44; colunas > 1; colunas--){
 			if(questTutorial.getCell(linhas,colunas)==door){
 				pc.y = (linhas+1)*32;
 				pc.x = (colunas+0.5)*32;
@@ -237,6 +236,7 @@ function geraInimigos(){
 		inimigos1[questTutorial.level][i].mx = xi;
 		inimigos1[questTutorial.level][i].my = yi;
 	}
+	
 	if(morcego){
 		do{
 			xi = 3+Math.floor(Math.random()*41);
