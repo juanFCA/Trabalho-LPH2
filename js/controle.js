@@ -60,7 +60,6 @@ function inimigosPersegue(){
 				this.vy += 270;
 			}
 		};
-	}
 }
 
 
@@ -236,7 +235,7 @@ function geraInimigos(){
 		inimigos1[questTutorial.level][i].mx = xi;
 		inimigos1[questTutorial.level][i].my = yi;
 	}
-	
+
 	if(morcego){
 		do{
 			xi = 3+Math.floor(Math.random()*41);

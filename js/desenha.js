@@ -244,6 +244,10 @@ function statusJogo(){
 		ctx.textBaseline = "hanging";
 		ctx.fillStyle = "#000000";
   		ctx.fillText(" = "+pc.moedas,320,250);
+  		if(toca==0){
+  			soundLib.play("derrota");
+  			toca++;
+  		}
 	}
 	if (pc.moedas == FASES*24) {
 		ctx.drawImage(imgWin, 0, 0, 680, 320);
@@ -252,5 +256,9 @@ function statusJogo(){
 		ctx.textBaseline = "hanging";
 		ctx.fillStyle = "#000000";
   		ctx.fillText(" = "+pc.moedas,320,250);
+  		if(toca==0){
+  			soundLib.play("vitoria");
+  			toca++;
+  		}
 	}
 }
