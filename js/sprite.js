@@ -9,44 +9,61 @@ function SpriteInMap(){
   this.my = 2;
   this.imgX = 0;
   this.imgY = 0;
-  this.iddle = 0;
+  this.iddle = 2;
   this.life = 0;
   this.skill = false;
   this.stamina = 5;
   this.dir = 1;
-  this.player = false;
+  this.atirando = false;
+  this.iv = 1;
+}
+SpriteInMap.prototype.moveQuadro = function(){
+    this.iddle+=8*this.iv*dt;
+    if(this.iddle>6 || this.iddle<2){
+      this.iddle = 2;
+    }
 }
 SpriteInMap.prototype.desenha = function(ctx){
+    this.moveQuadro();
     ctx.save();
     ctx.translate(this.x,this.y);
-    if(this.skill == true && this.vy >= 0){
-      if(this.dir>=0){
+    if(this.skill){
+        ctx.translate(0,-22);
         ctx.scale(1,-1);
-      }else{
-        ctx.scale(-1,-1);
-      }
-      ctx.drawImage(imgPc,
-        (this.imgX+Math.floor(this.iddle))*32,
-        this.imgY*32,32,32,
-        -16,-12,32,32);
-    }else{
-      if(this.dir>=0){
+    }
+    if(this.dir>=0){
         ctx.scale(1,1);
-      }else{
+    }else{
         ctx.scale(-1,1);
-      }
-      ctx.drawImage(imgPc,
+    }
+    if(this.vx ==0 && this.vy ==0){
+      this.imgX = 9;
+      this.iddle = 0;
+    }else{
+      this.imgX = 0;
+    }
+    if(this.atirando && this.vy ==0){
+      this.imgX = 10;
+      this.iddle = 0;
+    }
+    if(this.atirando && this.vy !=0){
+      this.imgX = 11;
+      this.iddle = 0;
+    }
+    ctx.drawImage(imgPc,
         (this.imgX+Math.floor(this.iddle))*32,
         this.imgY*32,32,32,
         -16,-32,32,32);
-    }
     ctx.restore();
     if(this.debug){
       this.desenhaDebug(ctx);
     }
+
+    /*
     if(this.vy!=0){
       this.imgX = 2;
     }
+
     if (this.vx!=0 && this.player==true) {
       if(this.mx%2==0){
         this.imgX = 6;
@@ -57,14 +74,12 @@ SpriteInMap.prototype.desenha = function(ctx){
     else{
       this.imgX = 0;
     }
+    */
   };
 
 SpriteInMap.prototype.move = function(dt){
     
-    this.iddle+=dt;
-    if(this.iddle>=2){
-      this.iddle = 0;
-    }
+
    
     this.vx = this.vx + this.ax*dt;
     if(this.skill == true && this.stamina > 0){

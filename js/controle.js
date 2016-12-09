@@ -92,6 +92,7 @@ addEventListener('keydown', function(e){
 				machado.vy = pc.vy;
 				machado.vang = 560;
 				soundLib.play("swing");
+				pc.atirando = true;
 				e.preventDefault();
 			break;
 		case 40:
@@ -154,6 +155,9 @@ addEventListener('keyup', function(e){
 			if(pc.stamina >= 1) pc.stamina--;
 			e.preventDefault();
 			break;
+		case 32:
+			pc.atirando = false;
+		break;
 	}
 });
 
@@ -207,7 +211,7 @@ function geraFranguinhos(){
 
 function geraInimigos(){
 	for(var i = 0; i<inimigos[questTutorial.level].length ; i++){
-		inimigos[questTutorial.level][i] = new SpriteInMap();
+		inimigos[questTutorial.level][i] = new Inimigo();
 		inimigos[questTutorial.level][i].imgY = 1;
 		do{
 			xi = 3+Math.floor(Math.random()*41);
@@ -220,7 +224,7 @@ function geraInimigos(){
 	}
 
 	for(var i = 0; i<inimigos1[questTutorial.level].length ; i++){
-		inimigos1[questTutorial.level][i] = new SpriteInMap();
+		inimigos1[questTutorial.level][i] = new Inimigo();
 		if(i==0){
 			inimigos1[questTutorial.level][i].imgY = 3;
 		} else{
