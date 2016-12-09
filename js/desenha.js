@@ -75,7 +75,11 @@ function desenha(){
 	for(var i=0; i<franguinho[questTutorial.level].length; i++){
 		if(franguinho[questTutorial.level][i].colidiuCom(pc)){
 			franguinho[questTutorial.level].splice(i,1);
-			pc.stamina+=2;
+			if((pc.stamina+=2)>=3.2){
+				pc.stamina = 5.2;
+			} else{
+				pc.stamina +=2;
+			}
 			soundLib.play("food");
 		}
 		if(franguinho[questTutorial.level].length==0){
@@ -89,7 +93,7 @@ function desenha(){
 	}
 	
 	if(pc.stamina < 5){
-		pc.stamina = pc.stamina + 0.0001;
+		pc.stamina += 0.0001;
 	}	
 
 	if(machado.vang>0 && morcego.colidiuCom(machado)){
@@ -153,7 +157,6 @@ function desenha(){
 			inimigos1[questTutorial.level][i].move(dt);
 		}
 	}
-
 	desenhaMapa();
 	if(pc.skill == false){
 		machado.desenha(ctx);

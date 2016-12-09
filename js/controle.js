@@ -136,7 +136,15 @@ addEventListener('keyup', function(e){
 	switch(e.keyCode){
 		case 37:
 		case 39:
-			pc.vx = 0;
+			if (questTutorial.level==2) {//escorrega no gelo
+				if(pc.dir==1){
+					pc.vx = +10;
+				} else {
+					pc.vx = -10;
+				}
+			}else {
+				pc.vx = 0;
+			}
 			e.preventDefault();
 			break;
 		case 38:
@@ -162,8 +170,10 @@ function findDoor(d){
 	for(var linhas = 1; linhas < 16; linhas++){
 		for(var colunas = 1; colunas < 44; colunas++){
 			if(questTutorial.getCell(linhas,colunas)==door){
-				pc.y = linhas*32;
-				pc.x = colunas*32;
+				pc.y = (linhas+1)*32;
+				pc.x = (colunas+0.5)*32;
+				pc.mx = colunas;
+				pc.my = linhas;
 			}
 		}
 	}
