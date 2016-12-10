@@ -125,7 +125,7 @@ addEventListener('keydown', function(e){
 			if(pc.stamina > 1){
 				pc.skill = true;
 				pc.vy = pc.vy - 230;
-				pc.gancho = {x: pc.x, y: pc.y-300};
+				pc.gancho = {x: pc.x, y:distancia};
 
 			}
 			e.preventDefault();

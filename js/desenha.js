@@ -158,6 +158,7 @@ function desenha(){
 		}
 	}
 	desenhaMapa();
+	desenhaCorda();
 	if(pc.skill == false){
 		machado.desenha(ctx);
 	}
@@ -195,6 +196,41 @@ function desenha(){
 		statusJogo();
 	}
 
+}
+
+function desenhaCorda(){
+	if(pc.my<8){
+		for (var i = 0; i < 8; i++) {
+			if(questTutorial.getCell(i,pc.mx)==0){
+				distancia = i*32;
+				break;
+			}
+		}
+	}else{
+		for (var i = 8; i < 16; i++) {
+			if(questTutorial.getCell(i,pc.mx)==0){
+				distancia = i*32;
+				break;
+			}
+		}
+	}
+ 	if(pc.gancho && pc.skill==true){
+	    if(Math.abs(pc.gancho.y - pc.y)>1){
+		    ctx.save();
+		    ctx.beginPath();
+		    ctx.lineWidth = 2;
+		    ctx.strokeStyle = "black";
+		    ctx.moveTo(pc.x,pc.y);
+		    ctx.lineTo(pc.gancho.x,pc.gancho.y);
+		    ctx.stroke();
+		    ctx.lineWidth = 1;
+		    ctx.strokeStyle = "gold";
+		    ctx.lineTo(pc.gancho.x,pc.gancho.y);
+		    ctx.closePath();
+		    ctx.stroke();
+		    ctx.restore();
+	    }
+	}
 }
 
 function desenhaMapa(){

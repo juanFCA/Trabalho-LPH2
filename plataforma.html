@@ -29,6 +29,7 @@
 		<script>
 			var Totalmoedas = document.getElementById("tmoeda");
 			var toca = 0;
+			var distancia = 0;
 			var zoom = 2;
 			var FASES = 5;
 			var moeda = new Array(FASES);
@@ -117,7 +118,7 @@
 			geraFranguinhos();
 			geraInimigos();
 			inimigosPersegue();
-			pc.gancho = {x:pc.x, y:pc.y};
+			pc.gancho = {x:pc.x, y:30};
 			setInterval(desenha, 1000*dt);
 			desenha();
 		</script>

@@ -25,23 +25,6 @@ SpriteInMap.prototype.moveQuadro = function(){
 }
 SpriteInMap.prototype.desenha = function(ctx){
     this.moveQuadro();
-    if(this.gancho){
-      if(Math.abs(this.gancho.y - this.y)>1){
-        ctx.save();
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = "black";
-        ctx.moveTo(this.x,this.y);
-        ctx.lineTo(-this.x+this.gancho.x,-this.y+this.gancho.y);
-        ctx.stroke();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "gold";
-        ctx.lineTo(this.x,this.y);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
     ctx.save();
     ctx.translate(this.x,this.y);
     if(this.skill){
@@ -81,10 +64,7 @@ SpriteInMap.prototype.desenha = function(ctx){
  
   };
 
-SpriteInMap.prototype.move = function(dt){
-    
-
-   
+SpriteInMap.prototype.move = function(dt){  
     this.vx = this.vx + this.ax*dt;
     if(this.skill == true && this.stamina > 0){
       this.vy = this.vy + this.ay*dt + (-1)*g*dt;
@@ -142,7 +122,6 @@ SpriteInMap.prototype.posiciona = function(){
 }
 
 SpriteInMap.prototype.desenhaDebug = function(ctx){
-
       ctx.strokeStyle = "red";
       ctx.beginPath();
       ctx.moveTo(this.x-5,this.y-5);
@@ -152,5 +131,4 @@ SpriteInMap.prototype.desenhaDebug = function(ctx){
       ctx.closePath();
       ctx.stroke();
       ctx.strokeRect(this.mx*32, this.my*32,32,32);
-
 }
