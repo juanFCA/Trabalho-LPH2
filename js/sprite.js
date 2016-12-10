@@ -25,6 +25,23 @@ SpriteInMap.prototype.moveQuadro = function(){
 }
 SpriteInMap.prototype.desenha = function(ctx){
     this.moveQuadro();
+    if(this.gancho){
+      if(Math.abs(this.gancho.y - this.y)>1){
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "black";
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(-this.x+this.gancho.x,-this.y+this.gancho.y);
+        ctx.stroke();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "gold";
+        ctx.lineTo(this.x,this.y);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
     ctx.save();
     ctx.translate(this.x,this.y);
     if(this.skill){
@@ -54,27 +71,14 @@ SpriteInMap.prototype.desenha = function(ctx){
         (this.imgX+Math.floor(this.iddle))*32,
         this.imgY*32,32,32,
         -16,-32,32,32);
+
     ctx.restore();
+
     if(this.debug){
       this.desenhaDebug(ctx);
     }
 
-    /*
-    if(this.vy!=0){
-      this.imgX = 2;
-    }
-
-    if (this.vx!=0 && this.player==true) {
-      if(this.mx%2==0){
-        this.imgX = 6;
-      }else{
-        this.imgX = 7;
-      }
-    }
-    else{
-      this.imgX = 0;
-    }
-    */
+ 
   };
 
 SpriteInMap.prototype.move = function(dt){

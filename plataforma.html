@@ -117,6 +117,7 @@
 			geraFranguinhos();
 			geraInimigos();
 			inimigosPersegue();
+			pc.gancho = {x:pc.x, y:pc.y};
 			setInterval(desenha, 1000*dt);
 			desenha();
 		</script>

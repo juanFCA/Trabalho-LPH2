@@ -125,6 +125,8 @@ addEventListener('keydown', function(e){
 			if(pc.stamina > 1){
 				pc.skill = true;
 				pc.vy = pc.vy - 230;
+				pc.gancho = {x: pc.x, y: pc.y-300};
+
 			}
 			e.preventDefault();
 			break;
@@ -153,6 +155,7 @@ addEventListener('keyup', function(e){
 		case 17:
 			pc.skill = false;
 			if(pc.stamina >= 1) pc.stamina--;
+			pc.gancho = {x:pc.x, y:pc.y};
 			e.preventDefault();
 			break;
 		case 32:
